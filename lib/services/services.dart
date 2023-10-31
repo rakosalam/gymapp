@@ -1,12 +1,22 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
+import 'package:dio/io.dart';
 import 'package:dio/src/form_data.dart';
 import 'package:dio/src/response.dart';
+import 'package:gymapp/models/RequestModel.dart';
 import 'package:gymapp/services/Iservices.dart';
+import 'package:gymapp/utils/apiurl.dart';
 
-class services extends Iservices {
+class Services extends IServices {
   @override
-  final dio = Dio();
+  static BaseOptions options = BaseOptions(
+    baseUrl: apiurl,
+    contentType: Headers.jsonContentType,
+    responseType: ResponseType.plain,
+  );
 
+  Dio dio = Dio(options);
   @override
   Future<Response> GetFoods(int id) async {
     throw UnimplementedError();
@@ -42,39 +52,43 @@ class services extends Iservices {
 
   @override
   Future<Response> Login(String uname, String password) async {
-    try {
-      final Response response = await dio.post(
-        '/Customer/login',
-        data: {
-          'uname': uname,
-          'password': password,
-        },
-      );
+    var response = await dio.post(
+      'Customer/login?uname=${uname}&password=${password}',
+    );
 
-      return response;
-    } catch (e) {
-      throw Exception('Failed to log in: $e');
-    }
+    return response;
   }
 
+  // @override
+  // Future<Response> postRequest(int cus_id, int tr_id, DateTime date, int isdiet,
+  //     int isworkout, String desc, int status, int id) async {
+  //   try {
+  //     final Response response = await dio.post(
+  //       '/Request/PostRequest',
+  //       data: {
+  //         'cus_id': cus_id,
+  //         'tr_id': tr_id,
+  //         'date': date.toIso8601String(),
+  //         'isdiet': isdiet,
+  //         'isworkout': isworkout,
+  //         'desc': desc,
+  //         'status': status,
+  //         'id': id,
+  //       },
+  //     );
+  //     return response;
+  //   } catch (e) {
+  //     throw Exception('Failed to make the POST request: $e');
+  //   }
+  // }
+
   @override
-  Future<Response> postRequest(int cus_id, int tr_id, DateTime date, int isdiet,
-      int isworkout, String desc, int status, int id) async {
+  Future<Response> PostRequest(RequestModel request) async {
     try {
       final Response response = await dio.post(
         '/Request/PostRequest',
-        data: {
-          'cus_id': cus_id,
-          'tr_id': tr_id,
-          'date': date.toIso8601String(),
-          'isdiet': isdiet,
-          'isworkout': isworkout,
-          'desc': desc,
-          'status': status,
-          'id': id,
-        },
+        data: request.toJson(),
       );
-
       return response;
     } catch (e) {
       throw Exception('Failed to make the POST request: $e');
@@ -136,10 +150,10 @@ class services extends Iservices {
     }
   }
 
-  @override
-  Future<Response> PostRequest(int cus_id, int tr_id, DateTime date, int isdiet,
-      int isworkout, String desc, int status, int id) {
-    // TODO: implement PostRequest
-    throw UnimplementedError();
-  }
+  // @override
+  // Future<Response> PostRequest(int cus_id, int tr_id, DateTime date, int isdiet,
+  //     int isworkout, String desc, int status, int id) {
+  //   // TODO: implement PostRequest
+  //   throw UnimplementedError();
+  // }
 }
