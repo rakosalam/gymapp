@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:gymapp/models/RequestModel.dart';
 import 'package:gymapp/models/ResultModel.dart';
 import 'package:gymapp/services/services.dart';
 
@@ -31,6 +32,13 @@ class DataProvider with ChangeNotifier {
     return res;
   }
 
+  Future<Response> ShowWorkouts(int id) async {
+    var res = await _services.getworkouts(id);
+
+    print(res.statusCode);
+    return res;
+  }
+
   Future<Response> ShowcustomerData(int id) async {
     var res = await _services.Getcustomers(id);
 
@@ -38,8 +46,22 @@ class DataProvider with ChangeNotifier {
     return res;
   }
 
+  Future<Response> showimage(int id) async {
+    var res = await _services.getImage(id);
+
+    print(res.statusCode);
+    return res;
+  }
+
   Future<Response> Updateimage(int id, FormData file) async {
     var res = await _services.Updateimage(id, file);
+
+    print(res.statusCode);
+    return res;
+  }
+
+  Future<Response> sendrequest(RequestModel request) async {
+    var res = await _services.PostRequest(request);
 
     print(res.statusCode);
     return res;

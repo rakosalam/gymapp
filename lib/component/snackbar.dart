@@ -8,7 +8,7 @@ class MySnackBars {
       behavior: SnackBarBehavior.floating,
       backgroundColor: Colors.transparent,
       content: AwesomeSnackbarContent(
-        title: 'Failure',
+        title: 'Failure ',
         message: message,
         contentType: ContentType.failure,
       ),
