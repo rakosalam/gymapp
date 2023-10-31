@@ -30,21 +30,18 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
     _provider = Provider.of<DataProvider>(context, listen: false);
-
-    if (result!.result == 1) {
-      _snack = MySnackBars.successSnackBar(result!.message!);
-    } else {
-      _snack = MySnackBars.getFailureSnackBar(result!.message!);
-    }
   }
 
   Future<void> loginfunc() async {
     String uname = usernamecontroller.text;
     String password = passwordcontroller.text;
-    var res = await _provider.login('rakosalam', '12345678');
+    var res = await _provider.login(uname, password);
     print(res.data);
     if (res.statusCode == 200) {
       result = ResultModel.fromJson(jsonDecode(res.data));
+      if (result!.result! == 0) {
+        _snack = MySnackBars.getFailureSnackBar(result!.message!);
+      }
     } else {
       print(res.statusCode);
     }

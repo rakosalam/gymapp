@@ -11,6 +11,8 @@ class MySnackBars {
         title: 'Failure ',
         message: message,
         contentType: ContentType.failure,
+        messageFontSize: 12,
+        titleFontSize: 12,
       ),
     );
   }

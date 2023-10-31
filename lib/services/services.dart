@@ -11,7 +11,7 @@ import 'package:gymapp/utils/apiurl.dart';
 class Services extends IServices {
   @override
   static BaseOptions options = BaseOptions(
-    baseUrl: apiurl,
+    baseUrl: 'https://192.168.1.55:45455/api/',
     contentType: Headers.jsonContentType,
     responseType: ResponseType.plain,
   );
