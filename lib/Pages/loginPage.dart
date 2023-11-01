@@ -1,12 +1,9 @@
 import 'dart:convert';
-
 import 'package:gymapp/models/ResultModel.dart';
-import 'package:gymapp/services/services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gymapp/Config/Colorcfg.dart';
 import 'package:provider/provider.dart';
-
 import '../component/snackbar.dart';
 import '../provider/provider.dart';
 
@@ -22,10 +19,9 @@ class _LoginPageState extends State<LoginPage> {
 
   final passwordcontroller = TextEditingController();
 
-  final _services = Services();
   late DataProvider _provider;
   ResultModel? result;
-  late SnackBar _snack = MySnackBars.successSnackBar(result!.message!);
+  late final SnackBar _snack = MySnackBars.getFailureSnackBar(result!.message!);
 
   void initState() {
     super.initState();
@@ -40,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
     if (res.statusCode == 200) {
       result = ResultModel.fromJson(jsonDecode(res.data));
       if (result!.result! == 0) {
-        _snack = MySnackBars.getFailureSnackBar(result!.message!);
+        setState(() {});
       }
     } else {
       print(res.statusCode);
