@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:go_router/go_router.dart';
+import 'package:gymapp/Pages/HomePage.dart';
 import 'package:gymapp/models/ResultModel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,11 +37,17 @@ class _LoginPageState extends State<LoginPage> {
     print(res.data);
     if (res.statusCode == 200) {
       result = ResultModel.fromJson(jsonDecode(res.data));
-      if (result!.result! == 0) {
-        setState(() {});
+
+      print(result!.result);
+      // ignore: unrelated_type_equality_checks
+      if (result!.result! == '1') {
+        print('lol');
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return HomePage(id: result!.id);
+        }));
       }
     } else {
-      print(res.statusCode);
+      print(res.statusCode.toString() + 'lol nigger');
     }
   }
 

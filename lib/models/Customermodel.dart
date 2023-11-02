@@ -6,6 +6,7 @@ class Customermodel {
   String? mpType;
   String? cusCode;
   int? indays;
+  int? mpduration;
   String? history;
 
   Customermodel(
@@ -16,6 +17,7 @@ class Customermodel {
       this.mpType,
       this.cusCode,
       this.indays,
+      this.mpduration,
       this.history});
 
   Customermodel.fromJson(Map<String, dynamic> json) {
@@ -26,6 +28,7 @@ class Customermodel {
     mpType = json['mp_Type'];
     cusCode = json['cus_code'];
     indays = json['indays'];
+    mpduration = json['mp_duration'];
     history = json['history'];
   }
 
@@ -38,6 +41,7 @@ class Customermodel {
     data['mp_Type'] = this.mpType;
     data['cus_code'] = this.cusCode;
     data['indays'] = this.indays;
+    data['mp_duration'] = this.mpduration;
     data['history'] = this.history;
     return data;
   }
