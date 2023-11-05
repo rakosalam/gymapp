@@ -80,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                   controller: usernamecontroller,
                   decoration: InputDecoration(
                     hintText: 'Username',
-                    hintStyle: TextStyle(color: Colors.black),
+                    hintStyle: TextStyle(color: Dark),
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                         borderSide: BorderSide(color: primery)),
