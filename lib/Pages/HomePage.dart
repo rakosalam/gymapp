@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:gymapp/utils/apiurl.dart';
 import 'package:intl/intl.dart';
 
 import 'package:barcode_widget/barcode_widget.dart';
@@ -37,7 +38,7 @@ class _HomePageState extends State<HomePage> {
     if (widget.id == null) {
       print('no value exist');
     } else {
-      Getuser(widget.id!);
+      Getuser(widget.id);
     }
   }
 
@@ -98,7 +99,7 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
                     child: ClipOval(
                       child: Image.network(
-                        'https://192.168.1.70:45455/api/Customer/getImage?id=${widget.id}',
+                        '${apiurl}Customer/getImage?id=${widget.id}',
                         width: 120,
                         height: 120,
                         fit: BoxFit.cover,
@@ -211,26 +212,22 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 30,
               ),
-              LinearPercentIndicator(
-                width: 330,
-                alignment: MainAxisAlignment.center,
+              CircularPercentIndicator(
                 // Set the width
-                lineHeight: 16.0, // Set the thickness
-                percent: result == null
-                    ? 0.0
-                    : result!.indays! /
-                        result!
-                            .mpduration!, // Set a default value (e.g., 0.0) if either value is null
-                barRadius: Radius.circular(2),
+                percent: 0.10,
+                radius: 50.0,
+                lineWidth: 8.0,
+                // Set a default value (e.g., 0.0) if either value is null
                 backgroundColor: Colors.grey,
                 progressColor: primery, // You can use your custom color here
                 center: Text(
                   'days : ' +
                       (result == null ? '0' : result!.indays!.toString()),
-                  style: TextStyle(color: white),
+                  style: TextStyle(color: primery),
                 ),
+
                 // Text in the center
               ),
               SizedBox(
@@ -287,79 +284,79 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 30,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        width: 130,
-                        decoration: BoxDecoration(
-                            color: white,
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(width: 1, color: primery)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: <Widget>[
-                              Icon(Icons.fitness_center,
-                                  size: 50, color: primery),
-                              SizedBox(height: 5),
-                              Text(
-                                'View Workouts',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: Dark,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        print('Button tapped');
-                      },
-                      child: Container(
-                        width: 130,
-                        decoration: BoxDecoration(
-                            color: white,
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(width: 1, color: primery)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: <Widget>[
-                              Icon(
-                                Icons.restaurant_menu,
-                                color: primery,
-                                size: 50,
-                              ),
-                              SizedBox(height: 5),
-                              Text(
-                                'view Diet',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: Dark,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              )
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     Padding(
+              //       padding: const EdgeInsets.all(8.0),
+              //       child: GestureDetector(
+              //         onTap: () {},
+              //         child: Container(
+              //           width: 130,
+              //           decoration: BoxDecoration(
+              //               color: white,
+              //               borderRadius: BorderRadius.circular(8),
+              //               border: Border.all(width: 1, color: primery)),
+              //           child: Padding(
+              //             padding: const EdgeInsets.all(8.0),
+              //             child: Column(
+              //               children: <Widget>[
+              //                 Icon(Icons.fitness_center,
+              //                     size: 50, color: primery),
+              //                 SizedBox(height: 5),
+              //                 Text(
+              //                   'View Workouts',
+              //                   style: TextStyle(
+              //                       fontSize: 16,
+              //                       color: Dark,
+              //                       fontWeight: FontWeight.bold),
+              //                 ),
+              //               ],
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //     SizedBox(
+              //       width: 20,
+              //     ),
+              //     Padding(
+              //       padding: const EdgeInsets.all(8.0),
+              //       child: GestureDetector(
+              //         onTap: () {
+              //           print('Button tapped');
+              //         },
+              //         child: Container(
+              //           width: 130,
+              //           decoration: BoxDecoration(
+              //               color: white,
+              //               borderRadius: BorderRadius.circular(8),
+              //               border: Border.all(width: 1, color: primery)),
+              //           child: Padding(
+              //             padding: const EdgeInsets.all(8.0),
+              //             child: Column(
+              //               children: <Widget>[
+              //                 Icon(
+              //                   Icons.restaurant_menu,
+              //                   color: primery,
+              //                   size: 50,
+              //                 ),
+              //                 SizedBox(height: 5),
+              //                 Text(
+              //                   'view Diet',
+              //                   style: TextStyle(
+              //                       fontSize: 16,
+              //                       color: Dark,
+              //                       fontWeight: FontWeight.bold),
+              //                 ),
+              //               ],
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //     )
+              //   ],
+              // )
             ],
           ),
         ),

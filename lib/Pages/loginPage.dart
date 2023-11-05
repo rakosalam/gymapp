@@ -119,6 +119,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               GestureDetector(
                 onTap: () async {
+                  print('nigger');
                   await loginfunc();
                   ScaffoldMessenger.of(context).showSnackBar(_snack);
                 },
