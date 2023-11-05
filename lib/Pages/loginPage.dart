@@ -42,8 +42,9 @@ class _LoginPageState extends State<LoginPage> {
       // ignore: unrelated_type_equality_checks
       if (result!.result! == '1') {
         print('lol');
+        Navigator.pop(context);
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return HomePage(id: result!.id);
+          return HomePage(id: result!.id!);
         }));
       }
     } else {
