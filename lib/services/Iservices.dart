@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:gymapp/models/RequestModel.dart';
+import 'package:image_picker/image_picker.dart';
 
 abstract class IServices {
   Future<Response> Getcustomers(int id);
@@ -12,7 +13,7 @@ abstract class IServices {
 
   Future<Response> updatepassword(int id, String oldpassword, String password);
 
-  Future<Response> Updateimage(int id, FormData file);
+  Future<Response> Updateimage(int id, XFile file);
 
   Future<Response> GetFoods(int id);
 

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:dio/src/form_data.dart';
@@ -7,6 +5,7 @@ import 'package:dio/src/response.dart';
 import 'package:gymapp/models/RequestModel.dart';
 import 'package:gymapp/services/Iservices.dart';
 import 'package:gymapp/utils/apiurl.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Services extends IServices {
   @override
@@ -96,7 +95,7 @@ class Services extends IServices {
   }
 
   @override
-  Future<Response> Updateimage(int id, FormData file) async {
+  Future<Response> Updateimage(int id, XFile file) async {
     try {
       final Response response = await dio.post(
         '/Customer/UpdateImage',

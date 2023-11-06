@@ -212,13 +212,13 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               SizedBox(
-                height: 30,
+                height: 60,
               ),
               CircularPercentIndicator(
                 // Set the width
                 percent: 0.10,
-                radius: 50.0,
-                lineWidth: 8.0,
+                radius: 70.0,
+                lineWidth: 10.0,
                 // Set a default value (e.g., 0.0) if either value is null
                 backgroundColor: Colors.grey,
                 progressColor: primery, // You can use your custom color here

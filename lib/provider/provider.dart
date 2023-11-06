@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gymapp/models/RequestModel.dart';
 import 'package:gymapp/models/ResultModel.dart';
 import 'package:gymapp/services/services.dart';
+import 'package:image_picker/image_picker.dart';
 
 class DataProvider with ChangeNotifier {
   late ResultModel result;
@@ -53,7 +54,7 @@ class DataProvider with ChangeNotifier {
     return res;
   }
 
-  Future<Response> Updateimage(int id, FormData file) async {
+  Future<Response> Updateimage(int id, XFile file) async {
     var res = await _services.Updateimage(id, file);
 
     print(res.statusCode);
