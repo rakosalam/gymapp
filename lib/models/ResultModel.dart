@@ -1,6 +1,6 @@
 class ResultModel {
   int? id;
-  String? result;
+  int? result;
   String? message;
 
   ResultModel({this.id, this.result, this.message});

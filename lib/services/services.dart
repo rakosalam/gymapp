@@ -97,17 +97,19 @@ class Services extends IServices {
   @override
   Future<Response> Updateimage(int id, XFile file) async {
     try {
-      final Response response = await dio.post(
+      FormData formData = FormData.fromMap({
+        'id': id,
+        'file': await MultipartFile.fromFile(file.path, filename: 'image.jpg'),
+      });
+
+      final response = await dio.post(
         '/Customer/UpdateImage',
-        data: {
-          'id': id,
-          'file': file,
-        },
+        data: formData,
       );
 
       return response;
     } catch (e) {
-      throw Exception('Failed to log in: $e');
+      throw Exception('Failed to update image: $e');
     }
   }
 

@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../component/snackbar.dart';
 import '../provider/provider.dart';
 import '../utils/apiurl.dart';
 
@@ -22,6 +23,7 @@ class UserSettings extends StatefulWidget {
 class _UserSettingsState extends State<UserSettings> {
   late DataProvider _provider;
   ResultModel? res;
+  SnackBar _snack = MySnackBars.getFailureSnackBar('lol');
   void initState() {
     super.initState();
     _provider = Provider.of<DataProvider>(context, listen: false);
@@ -36,6 +38,7 @@ class _UserSettingsState extends State<UserSettings> {
       res = ResultModel.fromJson(jsonDecode(result.data));
       if (res!.result == '1') {
         print(res!.message);
+        _snack = MySnackBars.getFailureSnackBar(res!.message!);
       } else {
         print(res!.message);
       }
@@ -65,7 +68,7 @@ class _UserSettingsState extends State<UserSettings> {
                   children: [
                     ClipOval(
                       child: Image.network(
-                        '${apiurl}Customer/getImage?id=${6}',
+                        '${apiurl}Customer/getImage?id=${7}',
                         width: 120,
                         height: 120,
                         fit: BoxFit.cover,
@@ -77,6 +80,8 @@ class _UserSettingsState extends State<UserSettings> {
                         child: IconButton(
                             onPressed: () {
                               Updateimage();
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(_snack);
                             },
                             icon: Icon(
                               Icons.add_a_photo,

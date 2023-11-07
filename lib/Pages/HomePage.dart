@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:gymapp/utils/apiurl.dart';
 import 'package:intl/intl.dart';
 
@@ -65,20 +66,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(30),
-        child: AppBar(
-          elevation: 0,
-          backgroundColor: second_bg,
-          actions: [
-            IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.settings,
-                  color: primery,
-                  size: 24,
-                ))
-          ],
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: white,
+        centerTitle: true,
+        title: Text(
+          'Homepage',
+          style: TextStyle(color: Dark),
         ),
       ),
       backgroundColor: white,
@@ -87,276 +81,249 @@ class _HomePageState extends State<HomePage> {
           scrollDirection: Axis.vertical,
           child: Column(
             children: [
-              Container(
-                height: 260,
-                decoration: BoxDecoration(
-                    color: second_bg,
-                    borderRadius: BorderRadiusDirectional.only(
-                        bottomEnd: Radius.circular(40),
-                        bottomStart: Radius.circular(40))),
-                child: Column(children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                    child: ClipOval(
-                      child: Image.network(
-                        '${apiurl}Customer/getImage?id=${widget.id}',
-                        width: 120,
-                        height: 120,
-                        fit: BoxFit.cover,
+              Column(children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+                  child: ClipOval(
+                    child: Image.network(
+                      '${apiurl}Customer/getImage?id=${widget.id}',
+                      width: 120,
+                      height: 120,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(8, 2, 8, 8),
+                        child: Text(
+                          result == null
+                              ? "name"
+                              : result!.cusFname! + ' ' + result!.cusLname!,
+                          style: TextStyle(
+                              color: Dark,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 2, 8, 8),
-                          child: Text(
-                            result == null
-                                ? "name"
-                                : result!.cusFname! + ' ' + result!.cusLname!,
-                            style: TextStyle(
-                                color: Dark,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(8, 8, 12, 8),
+                            child: Container(
+                              width: 60,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                  color: primery,
+                                  borderRadius: BorderRadius.circular(7)),
+                              child: Center(
+                                child: Text(
+                                  'age',
+                                  style: TextStyle(
+                                      color: white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(8, 8, 12, 8),
-                              child: Container(
-                                width: 60,
-                                height: 30,
-                                decoration: BoxDecoration(
-                                    color: primery,
-                                    borderRadius: BorderRadius.circular(7)),
-                                child: Center(
-                                  child: Text(
-                                    'age',
-                                    style: TextStyle(
-                                        color: white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15),
-                                  ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+                            child: Container(
+                              width: 60,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                  color: primery,
+                                  borderRadius: BorderRadius.circular(7)),
+                              child: Center(
+                                child: Text(
+                                  'weight',
+                                  style: TextStyle(
+                                      color: white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
-                              child: Container(
-                                width: 60,
-                                height: 30,
-                                decoration: BoxDecoration(
-                                    color: primery,
-                                    borderRadius: BorderRadius.circular(7)),
-                                child: Center(
-                                  child: Text(
-                                    'weight',
-                                    style: TextStyle(
-                                        color: white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15),
-                                  ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(8, 8, 12, 8),
+                            child: Container(
+                              width: 60,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                  color: primery,
+                                  borderRadius: BorderRadius.circular(7)),
+                              child: Center(
+                                child: Text(
+                                  'height',
+                                  style: TextStyle(
+                                      color: white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(8, 8, 12, 8),
-                              child: Container(
-                                width: 60,
-                                height: 30,
-                                decoration: BoxDecoration(
-                                    color: primery,
-                                    borderRadius: BorderRadius.circular(7)),
-                                child: Center(
-                                  child: Text(
-                                    'height',
-                                    style: TextStyle(
-                                        color: white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15),
-                                  ),
-                                ),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ]),
+
+              SizedBox(height: 10),
+
+              Container(
+                width: 100,
+                height: 24,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(6)),
+                    border: Border.all(color: primery, width: 2)),
+                child: Center(
+                    child: Text(
+                  'Show Barcode',
+                  style: TextStyle(color: primery, fontWeight: FontWeight.bold),
+                )),
+              ),
+              SizedBox(height: 7),
+              Divider(thickness: 2, color: Dark),
+
+              Container(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(children: [
+                          Container(
+                            width: 45,
+                            height: 45,
+                            decoration: BoxDecoration(
+                                color: Colors.grey.shade200,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8))),
+                            child: Center(
+                              child: Icon(
+                                Icons.settings_outlined,
+                                color: Dark,
+                                size: 35,
                               ),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ]),
-              ),
-
-              SizedBox(height: 30),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8), color: white),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: BarcodeWidget(
-                      data: result == null ? "0000" : result!.cusCode!,
-                      barcode: Barcode.code128(),
-                      width: 240,
-                      height: 60,
-                    ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Expanded(
+                            child: Text(
+                              'settings',
+                              style: TextStyle(
+                                  color: Dark,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Icon(Icons.arrow_forward_ios)
+                        ]),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(children: [
+                          Container(
+                            width: 45,
+                            height: 45,
+                            decoration: BoxDecoration(
+                                color: Colors.grey.shade200,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8))),
+                            child: Icon(
+                              Icons.fitness_center_outlined,
+                              color: Dark,
+                              size: 35,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Expanded(
+                            child: Text(
+                              'Show Workouts',
+                              style: TextStyle(
+                                  color: Dark,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Icon(Icons.arrow_forward_ios)
+                        ]),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(children: [
+                          Container(
+                            width: 45,
+                            height: 45,
+                            decoration: BoxDecoration(
+                                color: Colors.grey.shade200,
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(8))),
+                            child: Icon(
+                              Icons.favorite_border_outlined,
+                              color: Dark,
+                              size: 35,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Expanded(
+                            child: Text(
+                              'Show Diet',
+                              style: TextStyle(
+                                  color: Dark,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Icon(Icons.arrow_forward_ios)
+                        ]),
+                      ),
+                    ],
                   ),
                 ),
               ),
-              SizedBox(
-                height: 60,
-              ),
-              CircularPercentIndicator(
-                // Set the width
-                percent: 0.10,
-                radius: 70.0,
-                lineWidth: 10.0,
-                // Set a default value (e.g., 0.0) if either value is null
-                backgroundColor: Colors.grey,
-                progressColor: primery, // You can use your custom color here
-                center: Text(
-                  'days : ' +
-                      (result == null ? '0' : result!.indays!.toString()),
-                  style: TextStyle(color: primery),
-                ),
-
-                // Text in the center
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              // Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: Container(
-              //     width: 350,
-              //     height: 250,
-              //     decoration: BoxDecoration(
-              //         color: white,
-              //         border: Border.all(width: 1, color: primery),
-              //         borderRadius: BorderRadius.circular(8)),
-              //     child: Column(
-              //       children: [
-              //         Padding(
-              //           padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-              //           child: Text('Recent visits',
-              //               style: TextStyle(
-              //                   fontWeight: FontWeight.bold, fontSize: 16)),
-              //         ),
-              //         Divider(color: primery, thickness: 2),
-              //         Expanded(
-              //           child: FutureBuilder(
-              //               future: Gethistory(widget!.id!),
-              //               builder: (context, snapshot) {
-              //                 if (snapshot.hasData) {
-              //                   List<Customermodel>? customer = snapshot.data;
-
-              //                   return ListView.builder(
-              //                     physics: BouncingScrollPhysics(),
-              //                     itemCount: customer!.length,
-              //                     itemBuilder: (context, index) {
-              //                       return ListTile(
-              //                         title: Text(
-              //                           'Date :${format.format(DateTime.parse(customer[index].history!))}',
-              //                           style: TextStyle(
-              //                               fontWeight: FontWeight.bold),
-              //                           textAlign: TextAlign.center,
-              //                         ),
-              //                       );
-              //                     },
-              //                   );
-              //                 } else {
-              //                   return Text('loading 🤤');
-              //                 }
-              //               }),
-              //         ),
-              //       ],
-              //     ),
+              Divider(thickness: 2, color: Dark),
+              // CircularPercentIndicator(
+              //   // Set the width
+              //   percent: 0.10,
+              //   radius: 70.0,
+              //   lineWidth: 10.0,
+              //   // Set a default value (e.g., 0.0) if either value is null
+              //   backgroundColor: Colors.grey,
+              //   progressColor: primery, // You can use your custom color here
+              //   center: Text(
+              //     'days : ' +
+              //         (result == null ? '0' : result!.indays!.toString()),
+              //     style: TextStyle(color: primery),
               //   ),
+
+              //   // Text in the center
               // ),
-              SizedBox(
-                height: 30,
-              ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     Padding(
-              //       padding: const EdgeInsets.all(8.0),
-              //       child: GestureDetector(
-              //         onTap: () {},
-              //         child: Container(
-              //           width: 130,
-              //           decoration: BoxDecoration(
-              //               color: white,
-              //               borderRadius: BorderRadius.circular(8),
-              //               border: Border.all(width: 1, color: primery)),
-              //           child: Padding(
-              //             padding: const EdgeInsets.all(8.0),
-              //             child: Column(
-              //               children: <Widget>[
-              //                 Icon(Icons.fitness_center,
-              //                     size: 50, color: primery),
-              //                 SizedBox(height: 5),
-              //                 Text(
-              //                   'View Workouts',
-              //                   style: TextStyle(
-              //                       fontSize: 16,
-              //                       color: Dark,
-              //                       fontWeight: FontWeight.bold),
-              //                 ),
-              //               ],
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //     ),
-              //     SizedBox(
-              //       width: 20,
-              //     ),
-              //     Padding(
-              //       padding: const EdgeInsets.all(8.0),
-              //       child: GestureDetector(
-              //         onTap: () {
-              //           print('Button tapped');
-              //         },
-              //         child: Container(
-              //           width: 130,
-              //           decoration: BoxDecoration(
-              //               color: white,
-              //               borderRadius: BorderRadius.circular(8),
-              //               border: Border.all(width: 1, color: primery)),
-              //           child: Padding(
-              //             padding: const EdgeInsets.all(8.0),
-              //             child: Column(
-              //               children: <Widget>[
-              //                 Icon(
-              //                   Icons.restaurant_menu,
-              //                   color: primery,
-              //                   size: 50,
-              //                 ),
-              //                 SizedBox(height: 5),
-              //                 Text(
-              //                   'view Diet',
-              //                   style: TextStyle(
-              //                       fontSize: 16,
-              //                       color: Dark,
-              //                       fontWeight: FontWeight.bold),
-              //                 ),
-              //               ],
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //     )
-              //   ],
-              // )
             ],
           ),
         ),
@@ -369,6 +336,7 @@ class _HomePageState extends State<HomePage> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
             child: GNav(
+              tabBorderRadius: 8,
               backgroundColor: white,
               rippleColor: Colors.grey[300]!,
               hoverColor: Colors.grey[100]!,
