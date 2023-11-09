@@ -8,9 +8,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../component/buttons.dart';
 import '../component/snackbar.dart';
+import '../models/Customermodel.dart';
 import '../provider/provider.dart';
-import '../utils/apiurl.dart';
+import '../utils/urls.dart';
 
 class UserSettings extends StatefulWidget {
   final int id;
@@ -23,17 +25,29 @@ class UserSettings extends StatefulWidget {
 class _UserSettingsState extends State<UserSettings> {
   late DataProvider _provider;
   ResultModel? res;
+  Customermodel? result;
+
   SnackBar _snack = MySnackBars.getFailureSnackBar('lol');
   void initState() {
     super.initState();
     _provider = Provider.of<DataProvider>(context, listen: false);
+
+    Getuser(widget!.id!);
+  }
+
+  Future<void> Getuser(int id) async {
+    var res = await _provider.ShowcustomerData(id);
+    print(res.data);
+    if (res.statusCode == 200) {
+      result = Customermodel.fromJson(jsonDecode(res.data));
+      setState(() {});
+    }
   }
 
   Future<void> Updateimage() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
-    var result = await _provider.Updateimage(6, pickedFile!);
+    var result = await _provider.Updateimage(widget.id, pickedFile!);
     if (result.statusCode == 200) {
       res = ResultModel.fromJson(jsonDecode(result.data));
       if (res!.result == '1') {
@@ -50,6 +64,15 @@ class _UserSettingsState extends State<UserSettings> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back_ios_rounded,
+              color: primery,
+            ),
+          ),
           centerTitle: true,
           title: Text(
             'Settings',
@@ -68,7 +91,7 @@ class _UserSettingsState extends State<UserSettings> {
                   children: [
                     ClipOval(
                       child: Image.network(
-                        '${apiurl}Customer/getImage?id=${7}',
+                        '${apiurl}Customer/getImage?id=${widget.id}',
                         width: 120,
                         height: 120,
                         fit: BoxFit.cover,
@@ -97,15 +120,20 @@ class _UserSettingsState extends State<UserSettings> {
                 padding: const EdgeInsets.all(12.0),
                 child: Center(
                     child: Text(
-                  'name',
+                  result == null
+                      ? "name"
+                      : result!.cusFname! + ' ' + result!.cusLname!,
                   style: TextStyle(
                       color: Dark, fontWeight: FontWeight.bold, fontSize: 20),
                 )),
               )
             ]),
-            Divider(
-              color: Dark,
-              thickness: 2,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Divider(
+                color: Colors.grey[300],
+                thickness: 2,
+              ),
             ),
             SizedBox(
               height: 20,
@@ -118,104 +146,22 @@ class _UserSettingsState extends State<UserSettings> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Row(children: [
-                          Container(
-                            width: 45,
-                            height: 45,
-                            decoration: BoxDecoration(
-                                color: Colors.grey.shade200,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(8))),
-                            child: Center(
-                              child: Icon(
-                                Icons.lock_outline,
-                                color: Dark,
-                                size: 35,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Expanded(
-                            child: Text(
-                              'Update Password',
-                              style: TextStyle(
-                                  color: Dark,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Icon(Icons.arrow_forward_ios)
-                        ]),
+                        child:
+                            navbuttons('Update Password', Icons.lock_outline),
                       ),
                       SizedBox(
                         height: 20,
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Row(children: [
-                          Container(
-                            width: 45,
-                            height: 45,
-                            decoration: BoxDecoration(
-                                color: Colors.grey.shade200,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(8))),
-                            child: Icon(
-                              Icons.person_outlined,
-                              color: Dark,
-                              size: 35,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Expanded(
-                            child: Text(
-                              'Update Username',
-                              style: TextStyle(
-                                  color: Dark,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Icon(Icons.arrow_forward_ios)
-                        ]),
+                        child: navbuttons('Update User', Icons.person_outline),
                       ),
                       SizedBox(
                         height: 20,
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Row(children: [
-                          Container(
-                            width: 45,
-                            height: 45,
-                            decoration: BoxDecoration(
-                                color: Colors.grey.shade200,
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(8))),
-                            child: Icon(
-                              Icons.bookmark_add_outlined,
-                              color: Dark,
-                              size: 35,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Expanded(
-                            child: Text(
-                              'Update Details',
-                              style: TextStyle(
-                                  color: Dark,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Icon(Icons.arrow_forward_ios)
-                        ]),
+                        child: navbuttons('Details', Icons.edit_outlined),
                       ),
                     ],
                   ),

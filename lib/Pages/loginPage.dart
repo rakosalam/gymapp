@@ -6,7 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gymapp/Config/Colorcfg.dart';
 import 'package:provider/provider.dart';
+import '../component/buttons.dart';
 import '../component/snackbar.dart';
+import '../component/textfield.dart';
 import '../provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
@@ -39,9 +41,7 @@ class _LoginPageState extends State<LoginPage> {
       result = ResultModel.fromJson(jsonDecode(res.data));
 
       print(result!.result);
-      // ignore: unrelated_type_equality_checks
-      if (result!.result! == '1') {
-        print('lol');
+      if (result!.result! == 1) {
         Navigator.pop(context);
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return HomePage(id: result!.id!);
@@ -76,20 +76,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: TextField(
-                  controller: usernamecontroller,
-                  decoration: InputDecoration(
-                    hintText: 'Username',
-                    hintStyle: TextStyle(color: Dark),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(color: primery)),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: primery),
-                    ),
-                  ),
-                ),
+                child: TextFieldWidget(usernamecontroller, false, 'username'),
               ),
 
               SizedBox(
@@ -97,47 +84,19 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: TextField(
-                    controller: passwordcontroller,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      hintText: 'Password',
-                      hintStyle: TextStyle(color: Dark),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(color: primery),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(color: primery),
-                      ),
-                    ),
-                  )),
+                  child: TextFieldWidget(passwordcontroller, true, 'password')),
 
               SizedBox(
                 height: 20,
               ),
               GestureDetector(
                 onTap: () async {
-                  print('nigger');
                   await loginfunc();
-                  ScaffoldMessenger.of(context).showSnackBar(_snack);
+                  if (result!.result == 0) {
+                    ScaffoldMessenger.of(context).showSnackBar(_snack);
+                  }
                 },
-                child: Container(
-                  padding: EdgeInsets.all(25),
-                  margin: EdgeInsets.all(25),
-                  decoration: BoxDecoration(
-                      color: primery, borderRadius: BorderRadius.circular(8)),
-                  child: Center(
-                    child: Text(
-                      ('Login'),
-                      style: TextStyle(
-                          color: white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16),
-                    ),
-                  ),
-                ),
+                child: container_button('Log in', primery, white),
               )
 
               ///

@@ -4,7 +4,7 @@ import 'package:dio/src/form_data.dart';
 import 'package:dio/src/response.dart';
 import 'package:gymapp/models/RequestModel.dart';
 import 'package:gymapp/services/Iservices.dart';
-import 'package:gymapp/utils/apiurl.dart';
+import 'package:gymapp/utils/urls.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Services extends IServices {
@@ -94,7 +94,6 @@ class Services extends IServices {
     }
   }
 
-  @override
   Future<Response> Updateimage(int id, XFile file) async {
     try {
       FormData formData = FormData.fromMap({
@@ -104,7 +103,8 @@ class Services extends IServices {
 
       final response = await dio.post(
         '/Customer/UpdateImage',
-        data: formData,
+        queryParameters: {'id': id},
+        data: formData, // Send the FormData directly
       );
 
       return response;

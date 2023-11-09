@@ -1,20 +1,21 @@
 import 'dart:convert';
 
-import 'package:gymapp/utils/apiurl.dart';
+import 'package:gymapp/Pages/UserSettings.dart';
+import 'package:gymapp/utils/urls.dart';
 import 'package:intl/intl.dart';
 
-import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:gymapp/Config/Colorcfg.dart';
 import 'package:gymapp/models/Customermodel.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
+
 import 'package:provider/provider.dart';
 
 import '../Config/ToList.dart';
-import '../Config/dataconverter.dart';
-import '../models/ResultModel.dart';
+
+import '../component/buttons.dart';
+import '../component/dialogbox.dart';
+
 import '../provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -31,13 +32,18 @@ class _HomePageState extends State<HomePage> {
   late DataProvider _provider;
   Customermodel? result;
 
+  final Widget _divider = Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 20),
+    child: Divider(thickness: 1, color: Dark),
+  );
+
   void initState() {
     super.initState();
     _provider = Provider.of<DataProvider>(context, listen: false);
 
     print(widget.id);
     if (widget.id == null) {
-      print('no value exist');
+      return;
     } else {
       Getuser(widget.id);
     }
@@ -57,6 +63,7 @@ class _HomePageState extends State<HomePage> {
     print(res.data);
     if (res.statusCode == 200) {
       print(res.data);
+
       return itemsCategoriesFromJson(res.data);
     } else {
       return List.empty();
@@ -182,20 +189,30 @@ class _HomePageState extends State<HomePage> {
 
               SizedBox(height: 10),
 
-              Container(
-                width: 100,
-                height: 24,
-                decoration: BoxDecoration(
+              GestureDetector(
+                onTap: () {
+                  showMyDialog(
+                      context, result == null ? "00000" : result!.cusCode!);
+                },
+                child: Container(
+                  width: 100,
+                  height: 24,
+                  decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(6)),
-                    border: Border.all(color: primery, width: 2)),
-                child: Center(
+                    border: Border.all(color: primery, width: 2),
+                  ),
+                  child: Center(
                     child: Text(
-                  'Show Barcode',
-                  style: TextStyle(color: primery, fontWeight: FontWeight.bold),
-                )),
+                      'Show Barcode',
+                      style: TextStyle(
+                          color: primery, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
               ),
-              SizedBox(height: 7),
-              Divider(thickness: 2, color: Dark),
+
+              SizedBox(height: 10),
+              _divider,
 
               Container(
                 child: Padding(
@@ -204,110 +221,38 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Row(children: [
-                          Container(
-                            width: 45,
-                            height: 45,
-                            decoration: BoxDecoration(
-                                color: Colors.grey.shade200,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(8))),
-                            child: Center(
-                              child: Icon(
-                                Icons.settings_outlined,
-                                color: Dark,
-                                size: 35,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Expanded(
-                            child: Text(
-                              'settings',
-                              style: TextStyle(
-                                  color: Dark,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Icon(Icons.arrow_forward_ios)
-                        ]),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return UserSettings(id: result!.cusId!);
+                            }));
+                          },
+                          child:
+                              navbuttons('Settings', Icons.settings_outlined),
+                        ),
                       ),
                       SizedBox(
                         height: 20,
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Row(children: [
-                          Container(
-                            width: 45,
-                            height: 45,
-                            decoration: BoxDecoration(
-                                color: Colors.grey.shade200,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(8))),
-                            child: Icon(
-                              Icons.fitness_center_outlined,
-                              color: Dark,
-                              size: 35,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Expanded(
-                            child: Text(
-                              'Show Workouts',
-                              style: TextStyle(
-                                  color: Dark,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Icon(Icons.arrow_forward_ios)
-                        ]),
+                        child: navbuttons(
+                            'Workouts', Icons.fitness_center_outlined),
                       ),
                       SizedBox(
                         height: 20,
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Row(children: [
-                          Container(
-                            width: 45,
-                            height: 45,
-                            decoration: BoxDecoration(
-                                color: Colors.grey.shade200,
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(8))),
-                            child: Icon(
-                              Icons.favorite_border_outlined,
-                              color: Dark,
-                              size: 35,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Expanded(
-                            child: Text(
-                              'Show Diet',
-                              style: TextStyle(
-                                  color: Dark,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Icon(Icons.arrow_forward_ios)
-                        ]),
+                        child:
+                            navbuttons('Diet', Icons.favorite_border_rounded),
                       ),
                     ],
                   ),
                 ),
               ),
-              Divider(thickness: 2, color: Dark),
+
               // CircularPercentIndicator(
               //   // Set the width
               //   percent: 0.10,
@@ -330,14 +275,14 @@ class _HomePageState extends State<HomePage> {
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: white,
+          color: Colors.grey[200],
         ),
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
             child: GNav(
               tabBorderRadius: 8,
-              backgroundColor: white,
+              backgroundColor: Colors.grey[200]!,
               rippleColor: Colors.grey[300]!,
               hoverColor: Colors.grey[100]!,
               gap: 8,
