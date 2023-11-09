@@ -8,9 +8,8 @@ import 'package:gymapp/utils/urls.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Services extends IServices {
-  @override
   static BaseOptions options = BaseOptions(
-    baseUrl: apiurl,
+    baseUrl: homeurl,
     contentType: Headers.jsonContentType,
     responseType: ResponseType.plain,
   );

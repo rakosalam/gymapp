@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
   final DateFormat format = DateFormat('yyyy-MM-dd');
   late DataProvider _provider;
   Customermodel? result;
-
+  var ageAsString;
   final Widget _divider = Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20),
     child: Divider(thickness: 1, color: Dark),
@@ -54,6 +54,7 @@ class _HomePageState extends State<HomePage> {
     print(res.data);
     if (res.statusCode == 200) {
       result = Customermodel.fromJson(jsonDecode(res.data));
+
       setState(() {});
     }
   }
@@ -93,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
                   child: ClipOval(
                     child: Image.network(
-                      '${apiurl}Customer/getImage?id=${widget.id}',
+                      '${homeurl}Customer/getImage?id=${widget.id}',
                       width: 120,
                       height: 120,
                       fit: BoxFit.cover,
@@ -126,14 +127,14 @@ class _HomePageState extends State<HomePage> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(8, 8, 12, 8),
                             child: Container(
-                              width: 60,
+                              width: 80,
                               height: 30,
                               decoration: BoxDecoration(
                                   color: primery,
                                   borderRadius: BorderRadius.circular(7)),
                               child: Center(
                                 child: Text(
-                                  'age',
+                                  'age:${result == null ? '0' : result!.age!.toString()}',
                                   style: TextStyle(
                                       color: white,
                                       fontWeight: FontWeight.bold,
@@ -145,14 +146,17 @@ class _HomePageState extends State<HomePage> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
                             child: Container(
-                              width: 60,
+                              width: 80,
                               height: 30,
                               decoration: BoxDecoration(
                                   color: primery,
                                   borderRadius: BorderRadius.circular(7)),
                               child: Center(
                                 child: Text(
-                                  'weight',
+                                  'weight: ' +
+                                      (result == null
+                                          ? '0'
+                                          : result!.cusweight!.toString()),
                                   style: TextStyle(
                                       color: white,
                                       fontWeight: FontWeight.bold,
@@ -164,14 +168,17 @@ class _HomePageState extends State<HomePage> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(8, 8, 12, 8),
                             child: Container(
-                              width: 60,
+                              width: 80,
                               height: 30,
                               decoration: BoxDecoration(
                                   color: primery,
                                   borderRadius: BorderRadius.circular(7)),
                               child: Center(
                                 child: Text(
-                                  'height',
+                                  'height: ' +
+                                      (result == null
+                                          ? '0'
+                                          : result!.cusheight!.toString()),
                                   style: TextStyle(
                                       color: white,
                                       fontWeight: FontWeight.bold,

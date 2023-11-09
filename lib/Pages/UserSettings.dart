@@ -91,7 +91,7 @@ class _UserSettingsState extends State<UserSettings> {
                   children: [
                     ClipOval(
                       child: Image.network(
-                        '${apiurl}Customer/getImage?id=${widget.id}',
+                        '${homeurl}Customer/getImage?id=${widget.id}',
                         width: 120,
                         height: 120,
                         fit: BoxFit.cover,
