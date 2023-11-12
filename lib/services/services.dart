@@ -17,7 +17,16 @@ class Services extends IServices {
   Dio dio = Dio(options);
   @override
   Future<Response> GetFoods(int id) async {
-    throw UnimplementedError();
+    try {
+      Response response = await dio.get(
+        'Food/getfoods',
+        queryParameters: {'id': id},
+      );
+
+      return response;
+    } catch (e) {
+      throw Exception('Failed to get data: $e');
+    }
   }
 
   @override
@@ -121,7 +130,7 @@ class Services extends IServices {
   Future<Response> getworkouts(int id) async {
     try {
       Response response = await dio.get(
-        '/Workout/getworkouts',
+        'Workout/getworkouts',
         queryParameters: {'id': id},
       );
 
@@ -133,20 +142,24 @@ class Services extends IServices {
 
   @override
   Future<Response> updatepassword(
-      int id, String oldpassword, String password) async {
+      int id, String oldPassword, String newPassword) async {
     try {
+      // Use Map instead of FormData for simplicity, adjust as needed
+      Map<String, dynamic> data = {
+        'id': id,
+        'old_password': oldPassword,
+        'password': newPassword,
+      };
+
+      // Make the POST request with JSON data
       final Response response = await dio.post(
-        'Customer/updatepassword',
-        data: {
-          'id': id,
-          'oldpassword': oldpassword,
-          'password': password,
-        },
+        'Customer/updatepassword?id=$id',
+        data: data,
       );
 
       return response;
     } catch (e) {
-      throw Exception('Failed to log in: $e');
+      throw Exception('Failed to update password: $e');
     }
   }
 

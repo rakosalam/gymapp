@@ -35,8 +35,8 @@ class DataProvider with ChangeNotifier {
 
   Future<Response> ShowWorkouts(int id) async {
     var res = await _services.getworkouts(id);
+    print(res);
 
-    print(res.statusCode);
     return res;
   }
 

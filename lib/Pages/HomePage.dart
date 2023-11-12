@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'package:gymapp/Pages/ShowDietPage.dart';
+import 'package:gymapp/Pages/ShowHistory.dart';
+import 'package:gymapp/Pages/ShowWorkouts.dart';
 import 'package:gymapp/Pages/UserSettings.dart';
 import 'package:gymapp/utils/urls.dart';
 import 'package:intl/intl.dart';
@@ -32,6 +35,7 @@ class _HomePageState extends State<HomePage> {
   late DataProvider _provider;
   Customermodel? result;
   var ageAsString;
+  int _selectedIndex = 1;
   final Widget _divider = Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20),
     child: Divider(thickness: 1, color: Dark),
@@ -193,9 +197,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ]),
-
               SizedBox(height: 10),
-
               GestureDetector(
                 onTap: () {
                   showMyDialog(
@@ -217,10 +219,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-
               SizedBox(height: 10),
               _divider,
-
               Container(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -244,38 +244,36 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: navbuttons(
-                            'Workouts', Icons.fitness_center_outlined),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return ShowWorkouts(id: result!.cusId!);
+                            }));
+                          },
+                          child: navbuttons(
+                              'Workouts', Icons.fitness_center_outlined),
+                        ),
                       ),
                       SizedBox(
                         height: 20,
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child:
-                            navbuttons('Diet', Icons.favorite_border_rounded),
+                        child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return ShowDietPage(id: result!.cusId!);
+                              }));
+                            },
+                            child: navbuttons(
+                                'Diet', Icons.favorite_border_rounded)),
                       ),
                     ],
                   ),
                 ),
               ),
-
-              // CircularPercentIndicator(
-              //   // Set the width
-              //   percent: 0.10,
-              //   radius: 70.0,
-              //   lineWidth: 10.0,
-              //   // Set a default value (e.g., 0.0) if either value is null
-              //   backgroundColor: Colors.grey,
-              //   progressColor: primery, // You can use your custom color here
-              //   center: Text(
-              //     'days : ' +
-              //         (result == null ? '0' : result!.indays!.toString()),
-              //     style: TextStyle(color: primery),
-              //   ),
-
-              //   // Text in the center
-              // ),
             ],
           ),
         ),
@@ -313,10 +311,34 @@ class _HomePageState extends State<HomePage> {
                   text: 'History',
                 ),
               ],
+              selectedIndex: _selectedIndex,
+              onTabChange: (index) {
+                setState(() {
+                  pagechange(index);
+                });
+              },
             ),
           ),
         ),
       ),
     );
+  }
+
+  pagechange(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+
+    if (_selectedIndex == 0) {
+      // Handle the first tab if needed
+    } else if (_selectedIndex == 1) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return HomePage(id: result!.cusId!);
+      }));
+    } else if (_selectedIndex == 2) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return ShowHistory(id: result!.cusId!);
+      }));
+    }
   }
 }
