@@ -31,6 +31,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final PageController pageController = PageController(initialPage: 1);
+  int selectedTab = 1;
   late final String data;
   final DateFormat format = DateFormat('yyyy-MM-dd');
   late DataProvider _provider;
@@ -83,11 +84,11 @@ class _MainPageState extends State<MainPage> {
         backgroundColor: white,
         centerTitle: true,
         title: Text(
-          pageController.page == 0
+          selectedTab == 1
               ? 'Homepage'
-              : pageController.page == 1
+              : selectedTab == 2
                   ? "History"
-                  : "",
+                  : "Request",
           style: TextStyle(color: Dark),
         ),
       ),
@@ -122,7 +123,9 @@ class _MainPageState extends State<MainPage> {
                   case 2:
                     pageController.jumpToPage(1);
                 }
-                setState(() {});
+                setState(() {
+                  selectedTab = tab;
+                });
               },
               tabBorderRadius: 8,
               backgroundColor: Colors.grey[200]!,
