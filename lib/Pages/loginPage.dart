@@ -68,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                   ///logo
                   Container(
                       height: 150,
-                      child: Image(image: AssetImage('assets/barbell.png'))),
+                      child: Image(image: AssetImage('assets/logo.png'))),
 
                   //
 

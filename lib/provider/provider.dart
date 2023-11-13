@@ -8,6 +8,24 @@ import 'package:image_picker/image_picker.dart';
 class DataProvider with ChangeNotifier {
   late ResultModel result;
 
+  bool _isDiet = false;
+
+  bool _isWorkout = false;
+
+  bool get isDiet => _isDiet;
+
+  bool get isworkout => _isWorkout;
+
+  set isDiet(bool value) {
+    _isDiet = value;
+    notifyListeners();
+  }
+
+  set isworkout(bool value) {
+    _isWorkout = value;
+    notifyListeners();
+  }
+
   final Services _services = Services();
   bool loading = false;
 

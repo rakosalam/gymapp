@@ -9,7 +9,7 @@ import 'package:image_picker/image_picker.dart';
 
 class Services extends IServices {
   static BaseOptions options = BaseOptions(
-    baseUrl: apiurl,
+    baseUrl: homeurl,
     contentType: Headers.jsonContentType,
     responseType: ResponseType.plain,
   );
@@ -93,11 +93,11 @@ class Services extends IServices {
   Future<Response> PostRequest(RequestModel request) async {
     try {
       final Response response = await dio.post(
-        '/Request/PostRequest',
-        data: request.toJson(),
-      );
+          'Request/PostRequest?cus_id=${request.cusId}&tr_id=${request.trId}&date=${request.rqDate}&isdiet=${request.rqIsDiet}&isworkout=${request.rqIsWorkout}&desc=${request.rqDesc}&status=1&id=0');
+
       return response;
     } catch (e) {
+      print('Failed to make the POST request: $e');
       throw Exception('Failed to make the POST request: $e');
     }
   }
