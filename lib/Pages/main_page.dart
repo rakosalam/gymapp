@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:gymapp/Pages/ShowHistory.dart';
+import 'package:gymapp/Pages/ShowWorkouts.dart';
 import 'package:gymapp/Pages/UserSettings.dart';
 import 'package:gymapp/utils/urls.dart';
 import 'package:intl/intl.dart';
@@ -289,14 +291,27 @@ class _MainPageState extends State<MainPage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: navbuttons('Workouts', Icons.fitness_center_outlined),
+                  child: GestureDetector(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ShowWorkouts(id: widget.id),
+                          )),
+                      child: navbuttons(
+                          'Workouts', Icons.fitness_center_outlined)),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: navbuttons('Diet', Icons.favorite_border_rounded),
+                  child: GestureDetector(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ShowHistory(id: widget.id),
+                          )),
+                      child: navbuttons('Diet', Icons.favorite_border_rounded)),
                 ),
               ],
             ),
