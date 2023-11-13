@@ -42,7 +42,6 @@ class _LoginPageState extends State<LoginPage> {
 
       print(result!.result);
       if (result!.result! == 1) {
-        Navigator.pop(context);
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return MainPage(id: result!.id!);
         }));
@@ -61,47 +60,53 @@ class _LoginPageState extends State<LoginPage> {
       child: Scaffold(
         backgroundColor: white,
         body: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ///logo
-              Container(
-                  height: 150,
-                  child: Image(image: AssetImage('assets/barbell.png'))),
+          child: SingleChildScrollView(
+            child: SizedBox(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ///logo
+                  Container(
+                      height: 150,
+                      child: Image(image: AssetImage('assets/barbell.png'))),
 
-              //
+                  //
 
-              SizedBox(
-                height: 50,
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child:
+                        TextFieldWidget(usernamecontroller, false, 'username'),
+                  ),
+
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                      child: TextFieldWidget(
+                          passwordcontroller, true, 'password')),
+
+                  SizedBox(
+                    height: 20,
+                  ),
+                  GestureDetector(
+                    onTap: () async {
+                      await loginfunc();
+                      if (result!.result == 0) {
+                        ScaffoldMessenger.of(context).showSnackBar(_snack);
+                      }
+                    },
+                    child: container_button('Log in', primery, white),
+                  )
+
+                  ///
+                  /// button
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: TextFieldWidget(usernamecontroller, false, 'username'),
-              ),
-
-              SizedBox(
-                height: 30,
-              ),
-              Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: TextFieldWidget(passwordcontroller, true, 'password')),
-
-              SizedBox(
-                height: 20,
-              ),
-              GestureDetector(
-                onTap: () async {
-                  await loginfunc();
-                  if (result!.result == 0) {
-                    ScaffoldMessenger.of(context).showSnackBar(_snack);
-                  }
-                },
-                child: container_button('Log in', primery, white),
-              )
-
-              ///
-              /// button
-            ],
+            ),
           ),
         ),
       ),

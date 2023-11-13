@@ -8,6 +8,9 @@ class Customermodel {
   int? indays;
   int? mpduration;
   String? history;
+  int? age;
+  num? cusweight;
+  num? cusheight;
 
   Customermodel(
       {this.cusId,
@@ -18,7 +21,10 @@ class Customermodel {
       this.cusCode,
       this.indays,
       this.mpduration,
-      this.history});
+      this.history,
+      this.age,
+      this.cusheight,
+      this.cusweight});
 
   Customermodel.fromJson(Map<String, dynamic> json) {
     cusId = json['cus_id'];
@@ -30,6 +36,9 @@ class Customermodel {
     indays = json['indays'];
     mpduration = json['mp_duration'];
     history = json['history'];
+    age = json['age'];
+    cusheight = json['cus_height'];
+    cusweight = json['cus_weight'];
   }
 
   Map<String, dynamic> toJson() {
@@ -43,6 +52,9 @@ class Customermodel {
     data['indays'] = this.indays;
     data['mp_duration'] = this.mpduration;
     data['history'] = this.history;
+    data['age'] = this.age;
+    data['cus_weight'] = this.cusweight;
+    data['cus_height'] = this.cusheight;
     return data;
   }
 }

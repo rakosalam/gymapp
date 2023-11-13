@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:gymapp/Pages/main_page.dart';
+import 'package:gymapp/Pages/HomePage.dart';
+import 'package:gymapp/Pages/ShowHistory.dart';
+import 'package:gymapp/Pages/ShowWorkouts.dart';
 import 'package:gymapp/Pages/UserSettings.dart';
 import 'package:gymapp/Pages/loginPage.dart';
+import 'package:gymapp/Pages/updatepassword.dart';
 import 'package:gymapp/provider/provider.dart';
 import 'dart:io';
 
 import 'package:provider/provider.dart';
+
+import 'Pages/ShowDietPage.dart';
 
 void main() {
   HttpOverrides.global = MyHttpOverrides();

@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gymapp/Config/Colorcfg.dart';
 import 'package:gymapp/Pages/loginPage.dart';
+import 'package:gymapp/Pages/updatepassword.dart';
 import 'package:gymapp/models/ResultModel.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
@@ -144,28 +145,37 @@ class _UserSettingsState extends State<UserSettings> {
               child: Container(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child:
-                            navbuttons('Update Password', Icons.lock_outline),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: navbuttons('Update User', Icons.person_outline),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: navbuttons('Details', Icons.edit_outlined),
-                      ),
-                    ],
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return UpdatepasswordPage(id: result!.cusId!);
+                      }));
+                    },
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child:
+                              navbuttons('Update Password', Icons.lock_outline),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child:
+                              navbuttons('Update User', Icons.person_outline),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: navbuttons('Details', Icons.edit_outlined),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
