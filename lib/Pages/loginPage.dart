@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:go_router/go_router.dart';
-import 'package:gymapp/Pages/HomePage.dart';
+import 'package:gymapp/Pages/main_page.dart';
 import 'package:gymapp/models/ResultModel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
       if (result!.result! == 1) {
         Navigator.pop(context);
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return HomePage(id: result!.id!);
+          return MainPage(id: result!.id!);
         }));
       }
     } else {

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gymapp/Config/Colorcfg.dart';
+import 'package:gymapp/Pages/loginPage.dart';
 import 'package:gymapp/models/ResultModel.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
@@ -55,6 +56,7 @@ class _UserSettingsState extends State<UserSettings> {
         _snack = MySnackBars.getFailureSnackBar(res!.message!);
       } else {
         print(res!.message);
+        setState(() {});
       }
     }
   }
@@ -170,19 +172,30 @@ class _UserSettingsState extends State<UserSettings> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Container(
-                width: 400,
-                height: 40,
-                decoration: BoxDecoration(
-                    color: error,
-                    borderRadius: BorderRadius.all(Radius.circular(8))),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text('Logout',
-                      style: TextStyle(
-                          color: white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20)),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginPage(),
+                      ));
+                },
+                child: Container(
+                  width: 400,
+                  height: 40,
+                  decoration: BoxDecoration(
+                      color: error,
+                      borderRadius: BorderRadius.all(Radius.circular(8))),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text('Logout',
+                        style: TextStyle(
+                            color: white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20)),
+                  ),
                 ),
               ),
             )

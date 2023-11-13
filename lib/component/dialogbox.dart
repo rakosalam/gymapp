@@ -1,7 +1,5 @@
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:gymapp/Config/Colorcfg.dart';
 
 void showMyDialog(BuildContext context, String _barcode) {
