@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:gymapp/Pages/RequestPage.dart';
 import 'package:gymapp/Pages/ShowDietPage.dart';
 import 'package:gymapp/Pages/ShowHistory.dart';
 import 'package:gymapp/Pages/ShowWorkouts.dart';
@@ -31,6 +32,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final PageController pageController = PageController(initialPage: 1);
+  int selectedTab = 1;
   late final String data;
   final DateFormat format = DateFormat('yyyy-MM-dd');
   late DataProvider _provider;
@@ -83,11 +85,11 @@ class _MainPageState extends State<MainPage> {
         backgroundColor: white,
         centerTitle: true,
         title: Text(
-          pageController.page == 0
+          selectedTab == 1
               ? 'Homepage'
-              : pageController.page == 1
+              : selectedTab == 2
                   ? "History"
-                  : "",
+                  : "Request",
           style: TextStyle(color: Dark),
         ),
       ),
@@ -99,7 +101,11 @@ class _MainPageState extends State<MainPage> {
               child: PageView(
                 physics: const NeverScrollableScrollPhysics(),
                 controller: pageController,
-                children: [HomePage(context), ShowHistory(id: widget.id)],
+                children: [
+                  HomePage(context),
+                  ShowHistory(id: widget.id),
+                  RequestPage(id: widget.id)
+                ],
               ),
             ),
           ],
@@ -116,13 +122,16 @@ class _MainPageState extends State<MainPage> {
               selectedIndex: 1,
               onTabChange: (tab) {
                 switch (tab) {
-                  case 0: //nothing
+                  case 0:
+                    pageController.jumpToPage(2);
                   case 1:
                     pageController.jumpToPage(0);
                   case 2:
                     pageController.jumpToPage(1);
                 }
-                setState(() {});
+                setState(() {
+                  selectedTab = tab;
+                });
               },
               tabBorderRadius: 8,
               backgroundColor: Colors.grey[200]!,
@@ -164,7 +173,7 @@ class _MainPageState extends State<MainPage> {
             padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
             child: ClipOval(
               child: Image.network(
-                '${apiurl}Customer/getImage?id=${widget.id}',
+                '${homeurl}Customer/getImage?id=${widget.id}',
                 width: 120,
                 height: 120,
                 fit: BoxFit.cover,
