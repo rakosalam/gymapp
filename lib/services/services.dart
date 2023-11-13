@@ -9,7 +9,7 @@ import 'package:image_picker/image_picker.dart';
 
 class Services extends IServices {
   static BaseOptions options = BaseOptions(
-    baseUrl: apiurl,
+    baseUrl: homeurl,
     contentType: Headers.jsonContentType,
     responseType: ResponseType.plain,
   );
