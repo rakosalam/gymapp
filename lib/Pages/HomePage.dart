@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
                   child: ClipOval(
                     child: Image.network(
-                      '${homeurl}Customer/getImage?id=${widget.id}',
+                      '${apiurl}Customer/getImage?id=${widget.id}',
                       width: 120,
                       height: 120,
                       fit: BoxFit.cover,
