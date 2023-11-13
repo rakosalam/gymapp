@@ -79,15 +79,6 @@ class _RequestPageState extends State<_RequestPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          'Request Page',
-          style: TextStyle(color: white),
-        ),
-        backgroundColor: primery,
-        elevation: 0,
-      ),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Container(
@@ -218,7 +209,7 @@ class _RequestPageState extends State<_RequestPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 199),
+              SizedBox(height: 150),
               GestureDetector(
                 onTap: () async {
                   await Request();
