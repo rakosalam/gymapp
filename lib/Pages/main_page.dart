@@ -263,7 +263,7 @@ class _MainPageState extends State<MainPage> {
             showMyDialog(context, result == null ? "00000" : result!.cusCode!);
           },
           child: Container(
-            width: 100,
+            width: 120,
             height: 24,
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(6)),
