@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:gymapp/Pages/ShowDietPage.dart';
 import 'package:gymapp/Pages/ShowHistory.dart';
 import 'package:gymapp/Pages/ShowWorkouts.dart';
 import 'package:gymapp/Pages/UserSettings.dart';
@@ -82,7 +83,11 @@ class _MainPageState extends State<MainPage> {
         backgroundColor: white,
         centerTitle: true,
         title: Text(
-          'Homepage',
+          pageController.page == 0
+              ? 'Homepage'
+              : pageController.page == 1
+                  ? "History"
+                  : "",
           style: TextStyle(color: Dark),
         ),
       ),
@@ -94,7 +99,7 @@ class _MainPageState extends State<MainPage> {
               child: PageView(
                 physics: const NeverScrollableScrollPhysics(),
                 controller: pageController,
-                children: [HomePage(context)],
+                children: [HomePage(context), ShowHistory(id: widget.id)],
               ),
             ),
           ],
@@ -110,7 +115,14 @@ class _MainPageState extends State<MainPage> {
             child: GNav(
               selectedIndex: 1,
               onTabChange: (tab) {
-                //pageController.jumpToPage(tab);
+                switch (tab) {
+                  case 0: //nothing
+                  case 1:
+                    pageController.jumpToPage(0);
+                  case 2:
+                    pageController.jumpToPage(1);
+                }
+                setState(() {});
               },
               tabBorderRadius: 8,
               backgroundColor: Colors.grey[200]!,
@@ -309,7 +321,7 @@ class _MainPageState extends State<MainPage> {
                       onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ShowHistory(id: widget.id),
+                            builder: (context) => ShowDietPage(id: widget.id),
                           )),
                       child: navbuttons('Diet', Icons.favorite_border_rounded)),
                 ),

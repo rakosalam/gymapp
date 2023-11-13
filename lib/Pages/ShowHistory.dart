@@ -21,6 +21,7 @@ class _ShowHistoryState extends State<ShowHistory> {
   final DateFormat format = DateFormat('yyyy-MM-dd');
   final DateFormat timeFormat = DateFormat('HH:mm:ss');
 
+  @override
   void initState() {
     super.initState();
     _provider = Provider.of<DataProvider>(context, listen: false);
@@ -29,12 +30,6 @@ class _ShowHistoryState extends State<ShowHistory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('History', style: TextStyle(color: Dark)),
-        backgroundColor: white,
-        elevation: 0,
-      ),
       body: Container(
         color: white,
         child: Column(
@@ -126,10 +121,10 @@ class _ShowHistoryState extends State<ShowHistory> {
                           },
                         );
                       } else {
-                        return CircularProgressIndicator();
+                        return Center(child: CircularProgressIndicator());
                       }
                     } else {
-                      return CircularProgressIndicator();
+                      return Center(child: CircularProgressIndicator());
                     }
                   },
                 ),
