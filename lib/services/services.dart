@@ -163,6 +163,19 @@ class Services extends IServices {
     }
   }
 
+  @override
+  Future<Response> ShowTrainer() async {
+    try {
+      Response response = await dio.get(
+        'Customer/GetTrainer',
+      );
+
+      return response;
+    } catch (e) {
+      throw Exception('Failed to get data: $e');
+    }
+  }
+
   // @override
   // Future<Response> PostRequest(int cus_id, int tr_id, DateTime date, int isdiet,
   //     int isworkout, String desc, int status, int id) {

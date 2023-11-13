@@ -75,4 +75,11 @@ class DataProvider with ChangeNotifier {
     print(res.statusCode);
     return res;
   }
+
+  Future<Response> ShowTrainer() async {
+    var res = await _services.ShowTrainer();
+
+    print(res.statusCode);
+    return res;
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:gymapp/Pages/RequestPage.dart';
 import 'package:gymapp/Pages/ShowHistory.dart';
 import 'package:gymapp/Pages/ShowWorkouts.dart';
 import 'package:gymapp/Pages/UserSettings.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: LoginPage());
+    return MaterialApp(home: RequestPage());
   }
 }
 

@@ -20,4 +20,5 @@ abstract class IServices {
   Future<Response> getworkouts(int id);
 
   Future<Response> PostRequest(RequestModel request);
+  Future<Response> ShowTrainer();
 }
