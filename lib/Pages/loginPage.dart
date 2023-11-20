@@ -61,10 +61,15 @@ class _LoginPageState extends State<LoginPage> {
         backgroundColor: white,
         body: SafeArea(
           child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
             child: SizedBox(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  SizedBox(
+                    height: 30,
+                  ),
+
                   ///logo
                   Container(
                       height: 150,
@@ -73,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                   //
 
                   SizedBox(
-                    height: 50,
+                    height: 100,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -90,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                           passwordcontroller, true, 'password')),
 
                   SizedBox(
-                    height: 20,
+                    height: 50,
                   ),
                   GestureDetector(
                     onTap: () async {

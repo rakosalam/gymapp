@@ -9,5 +9,6 @@ Color error = const Color.fromARGB(255, 244, 67, 54);
 Color Dark = const Color.fromARGB(255, 66, 66, 66);
 Color text = const Color.fromARGB(255, 66, 66, 66);
 Color white = const Color.fromARGB(255, 255, 255, 255);
+Color success = const Color.fromARGB(1, 0, 200, 83);
 
 Color second_bg = const Color(0xffBBDEFB);

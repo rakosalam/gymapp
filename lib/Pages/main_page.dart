@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:get/get.dart';
 import 'package:gymapp/Pages/RequestPage.dart';
 import 'package:gymapp/Pages/ShowDietPage.dart';
 import 'package:gymapp/Pages/ShowHistory.dart';
@@ -12,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:gymapp/Config/Colorcfg.dart';
 import 'package:gymapp/models/Customermodel.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import 'package:provider/provider.dart';
 
@@ -37,6 +39,8 @@ class _MainPageState extends State<MainPage> {
   final DateFormat format = DateFormat('yyyy-MM-dd');
   late DataProvider _provider;
   Customermodel? result;
+  double progress = 0.9;
+  Color progresscolor = success;
 
   final Widget _divider = Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -54,6 +58,17 @@ class _MainPageState extends State<MainPage> {
     } else {
       Getuser(widget.id);
     }
+  }
+
+  Color progcolor(double P) {
+    if (P <= 1.0 && P >= 0.5) {
+      return success;
+    } else if (P <= 0.5 && P >= 0.3) {
+      return Warning;
+    } else if (P <= 0.3 && P >= 0.0) {
+      return error;
+    }
+    return error;
   }
 
   Future<void> Getuser(int id) async {
@@ -102,8 +117,8 @@ class _MainPageState extends State<MainPage> {
                 physics: const NeverScrollableScrollPhysics(),
                 controller: pageController,
                 children: [
-                  HomePage(context),
                   ShowHistory(id: widget.id),
+                  HomePage(context),
                   RequestPage(id: widget.id)
                 ],
               ),
@@ -169,11 +184,16 @@ class _MainPageState extends State<MainPage> {
     return Column(
       children: [
         Column(children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-            child: ClipOval(
+          CircularPercentIndicator(
+            radius: 65.0,
+            animation: true,
+            animationDuration: 100,
+            lineWidth: 8.0,
+            percent: progress,
+            progressColor: progcolor(progress),
+            center: ClipOval(
               child: Image.network(
-                '${homeurl}Customer/getImage?id=${widget.id}',
+                '${apiurl}Customer/getImage?id=${widget.id}',
                 width: 120,
                 height: 120,
                 fit: BoxFit.cover,
@@ -204,14 +224,14 @@ class _MainPageState extends State<MainPage> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(8, 8, 12, 8),
                       child: Container(
-                        width: 60,
+                        width: 85,
                         height: 30,
                         decoration: BoxDecoration(
                             color: primery,
                             borderRadius: BorderRadius.circular(7)),
                         child: Center(
                           child: Text(
-                            'age',
+                            result == null ? "Age" : "Age: ${result!.age}",
                             style: TextStyle(
                                 color: white,
                                 fontWeight: FontWeight.bold,
@@ -223,14 +243,16 @@ class _MainPageState extends State<MainPage> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
                       child: Container(
-                        width: 60,
+                        width: 85,
                         height: 30,
                         decoration: BoxDecoration(
                             color: primery,
                             borderRadius: BorderRadius.circular(7)),
                         child: Center(
                           child: Text(
-                            'weight',
+                            result == null
+                                ? "Weight"
+                                : "weight: ${result!.cusweight}",
                             style: TextStyle(
                                 color: white,
                                 fontWeight: FontWeight.bold,
@@ -242,14 +264,16 @@ class _MainPageState extends State<MainPage> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(8, 8, 12, 8),
                       child: Container(
-                        width: 60,
+                        width: 85,
                         height: 30,
                         decoration: BoxDecoration(
                             color: primery,
                             borderRadius: BorderRadius.circular(7)),
                         child: Center(
                           child: Text(
-                            'height',
+                            result == null
+                                ? "Height"
+                                : "Height: ${result!.cusheight}",
                             style: TextStyle(
                                 color: white,
                                 fontWeight: FontWeight.bold,
