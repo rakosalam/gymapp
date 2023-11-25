@@ -1,6 +1,9 @@
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:gymapp/Config/Colorcfg.dart';
+import 'package:intl/intl.dart';
+
+final DateFormat format = DateFormat('yyyy-MM-dd');
 
 void showMyDialog(BuildContext context, String _barcode) {
   showGeneralDialog(
@@ -31,6 +34,75 @@ void showMyDialog(BuildContext context, String _barcode) {
       );
     },
   );
+}
+
+void ShowWorkoutinfo(
+    BuildContext context, String startdate, String enddate, String desc) {
+  String formattedStartDate = format.format(DateTime.parse(startdate));
+  String formatedEndDate = format.format(DateTime.parse(enddate));
+
+  showGeneralDialog(
+    barrierDismissible: true,
+    barrierLabel: '',
+    context: context,
+    pageBuilder: (context, animation, secondaryAnimation) {
+      return Center(
+        child: Container(
+          height: 350,
+          width: 350,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+              border: Border.all(color: primery),
+              color: white),
+          child: Card(
+              child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                  height: 200,
+                  width: 300,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text('Start Date:${formattedStartDate}',
+                          style: TextStyle(
+                              color: Dark,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold)),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Text('End Date:${formatedEndDate}',
+                          style: TextStyle(
+                              color: Dark,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold)),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Container(
+                        width: 260,
+                        decoration: BoxDecoration(
+                            border: Border.all(width: 2, color: primery),
+                            borderRadius: BorderRadius.all(Radius.circular(8))),
+                        child: Text(desc,
+                            maxLines: 5,
+                            style: TextStyle(
+                                color: Dark,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold)),
+                      )
+                    ],
+                  )),
+            ),
+          )),
+        ),
+      );
+    },
+  );
+}
+
+
 
   // Get.defaultDialog(
   //   title: "Dialog Title",
@@ -46,4 +118,4 @@ void showMyDialog(BuildContext context, String _barcode) {
   //     Get.back(); // Close the dialog
   //   },
   // );
-}
+

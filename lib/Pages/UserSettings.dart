@@ -90,30 +90,42 @@ class _UserSettingsState extends State<UserSettings> {
           child: Column(children: [
             Column(children: [
               Center(
-                child: Stack(
-                  children: [
-                    ClipOval(
-                      child: Image.network(
-                        '${apiurl}Customer/getImage?id=${widget.id}',
-                        width: 120,
-                        height: 120,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Positioned(
-                        bottom: 2.0,
-                        right: 2.0,
-                        child: IconButton(
-                            onPressed: () {
+                child: CircleAvatar(
+                  child: ClipOval(
+                    child: Stack(
+                      children: <Widget>[
+                        Image.network(
+                          '${homeurl}Customer/getImage?id=${widget.id}',
+                          width: 120,
+                          height: 120,
+                          fit: BoxFit.cover,
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          left: 0,
+                          height: 33,
+                          child: GestureDetector(
+                            onTap: () {
                               Updateimage();
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(_snack);
                             },
-                            icon: Icon(
-                              Icons.add_a_photo,
-                              color: primery,
-                            )))
-                  ],
+                            child: Container(
+                              height: 20,
+                              width: 30,
+                              color: Color.fromRGBO(0, 0, 0, .74),
+                              child: Center(
+                                child: Icon(Icons.photo_camera,
+                                    color: Colors.grey),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  radius: 68.0,
+                  // backgroundImage: NetworkImage('https://via.placeholder.com/300'),
+                  backgroundColor: Colors.transparent,
                 ),
               ),
               SizedBox(

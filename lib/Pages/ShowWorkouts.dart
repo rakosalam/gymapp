@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gymapp/Config/Colorcfg.dart';
 import 'package:provider/provider.dart';
 
+import '../component/dialogbox.dart';
 import '../models/WorkoutModel.dart';
 import '../provider/provider.dart';
 
@@ -18,11 +20,22 @@ class ShowWorkouts extends StatefulWidget {
 
 class _ShowWorkoutsState extends State<ShowWorkouts> {
   late DataProvider _provider;
+  List<WorkoutModel>? list;
   WorkoutModel? result;
-
   void initState() {
     super.initState();
     _provider = Provider.of<DataProvider>(context, listen: false);
+    getUser(widget.id);
+  }
+
+  Future<void> getUser(int id) async {
+    Response res = await _provider.ShowWorkouts(id);
+    if (res.statusCode == 200) {
+      list = List<WorkoutModel>.from(
+          jsonDecode(res.data!).map((x) => WorkoutModel.fromJson(x)));
+
+      result = list![0];
+    }
   }
 
   @override
@@ -31,6 +44,20 @@ class _ShowWorkoutsState extends State<ShowWorkouts> {
       appBar: AppBar(
         centerTitle: true,
         title: Text('Workouts', style: TextStyle(color: Dark)),
+        actions: [
+          IconButton(
+              onPressed: () {
+                ShowWorkoutinfo(
+                    context,
+                    result == null ? "0" : result!.wmStartDate!,
+                    result == null ? "0" : result!.wmEndDate!,
+                    result == null ? "0" : result!.wmDesc!);
+              },
+              icon: Icon(
+                Icons.info_outline_rounded,
+                color: primery,
+              ))
+        ],
         backgroundColor: white,
         elevation: 0,
       ),

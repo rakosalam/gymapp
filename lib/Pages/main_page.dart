@@ -34,13 +34,12 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final PageController pageController = PageController(initialPage: 1);
-  int selectedTab = 1;
+  int selectedTab = 0;
   late final String data;
   final DateFormat format = DateFormat('yyyy-MM-dd');
   late DataProvider _provider;
   Customermodel? result;
-  double progress = 0.9;
-  Color progresscolor = success;
+  double? progress;
 
   final Widget _divider = Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -62,13 +61,17 @@ class _MainPageState extends State<MainPage> {
 
   Color progcolor(double P) {
     if (P <= 1.0 && P >= 0.5) {
-      return success;
+      print('Returning green');
+      return Colors.green;
     } else if (P <= 0.5 && P >= 0.3) {
-      return Warning;
+      print('Returning orange');
+      return Colors.orange;
     } else if (P <= 0.3 && P >= 0.0) {
-      return error;
+      print('Returning red');
+      return Colors.red;
     }
-    return error;
+    print('Returning default red');
+    return Colors.red;
   }
 
   Future<void> Getuser(int id) async {
@@ -76,6 +79,7 @@ class _MainPageState extends State<MainPage> {
     print(res.data);
     if (res.statusCode == 200) {
       result = Customermodel.fromJson(jsonDecode(res.data));
+      progress = (result!.indays! / result!.mpduration!);
       setState(() {});
     }
   }
@@ -117,8 +121,8 @@ class _MainPageState extends State<MainPage> {
                 physics: const NeverScrollableScrollPhysics(),
                 controller: pageController,
                 children: [
-                  ShowHistory(id: widget.id),
                   HomePage(context),
+                  ShowHistory(id: widget.id),
                   RequestPage(id: widget.id)
                 ],
               ),
@@ -189,14 +193,17 @@ class _MainPageState extends State<MainPage> {
             animation: true,
             animationDuration: 100,
             lineWidth: 8.0,
-            percent: progress,
-            progressColor: progcolor(progress),
-            center: ClipOval(
-              child: Image.network(
-                '${apiurl}Customer/getImage?id=${widget.id}',
-                width: 120,
-                height: 120,
-                fit: BoxFit.cover,
+            percent: progress == null ? 0 : progress!,
+            progressColor: progcolor(progress == null ? 0 : progress!),
+            center: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: ClipOval(
+                child: Image.network(
+                  '${homeurl}Customer/getImage?id=${widget.id}',
+                  width: 120,
+                  height: 120,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
