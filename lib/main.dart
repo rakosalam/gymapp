@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: ShowWorkouts(id: 12));
+    return MaterialApp(home: LoginPage());
   }
 }
 

@@ -49,7 +49,6 @@ class _ShowWorkoutsState extends State<ShowWorkouts> {
               onPressed: () {
                 ShowWorkoutinfo(
                     context,
-                    result == null ? "0" : result!.wmStartDate!,
                     result == null ? "0" : result!.wmEndDate!,
                     result == null ? "0" : result!.wmDesc!);
               },

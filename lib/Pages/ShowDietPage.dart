@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:gymapp/component/dialogbox.dart';
 import 'package:gymapp/models/FoodModel.dart';
 import 'package:provider/provider.dart';
 
@@ -18,10 +20,23 @@ class ShowDietPage extends StatefulWidget {
 class _ShowDietPageState extends State<ShowDietPage> {
   late DataProvider _provider;
   FoodModel? result;
+  List<FoodModel>? list;
 
   void initState() {
     super.initState();
     _provider = Provider.of<DataProvider>(context, listen: false);
+    getUser(widget.id);
+  }
+
+  Future<void> getUser(int id) async {
+    Response res = await _provider.ShowFood(id);
+    if (res.statusCode == 200) {
+      list = List<FoodModel>.from(
+          jsonDecode(res.data!).map((x) => FoodModel.fromJson(x)));
+
+      result = list![0];
+      print(result!.fmEndDate);
+    }
   }
 
   @override
@@ -32,6 +47,19 @@ class _ShowDietPageState extends State<ShowDietPage> {
         title: Text('Diet', style: TextStyle(color: Dark)),
         backgroundColor: white,
         elevation: 0,
+        actions: [
+          IconButton(
+              onPressed: () {
+                ShowWorkoutinfo(
+                    context,
+                    result == null ? "0" : result!.fmEndDate!,
+                    result == null ? "0" : result!.fmDesc!);
+              },
+              icon: Icon(
+                Icons.info_outline_rounded,
+                color: primery,
+              ))
+        ],
       ),
       body: Container(
         color: white,
