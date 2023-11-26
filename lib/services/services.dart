@@ -9,7 +9,7 @@ import 'package:image_picker/image_picker.dart';
 
 class Services extends IServices {
   static BaseOptions options = BaseOptions(
-    baseUrl: homeurl,
+    baseUrl: apiurl,
     contentType: Headers.jsonContentType,
     responseType: ResponseType.plain,
   );
@@ -144,7 +144,6 @@ class Services extends IServices {
   Future<Response> updatepassword(
       int id, String oldPassword, String newPassword) async {
     try {
-      // Use Map instead of FormData for simplicity, adjust as needed
       Map<String, dynamic> data = {
         'id': id,
         'old_password': oldPassword,
