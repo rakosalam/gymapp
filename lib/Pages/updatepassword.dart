@@ -53,13 +53,15 @@ class _UpdatepasswordPageState extends State<UpdatepasswordPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: primery,
+        backgroundColor: white,
+        elevation: 0,
         title: Text(
           'Update password',
-          style: TextStyle(color: white, fontWeight: FontWeight.bold),
+          style: TextStyle(color: Dark, fontWeight: FontWeight.bold),
         ),
       ),
       body: Container(
+        color: white,
         height: MediaQuery.of(context).size.height,
         child: SafeArea(
           child: Column(
