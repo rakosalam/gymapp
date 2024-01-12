@@ -1,8 +1,7 @@
 import 'dart:convert';
-import 'package:go_router/go_router.dart';
+import 'dart:math';
 import 'package:gymapp/Pages/main_page.dart';
 import 'package:gymapp/models/ResultModel.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gymapp/Config/Colorcfg.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +11,7 @@ import '../component/textfield.dart';
 import '../provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({super.key});
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -27,6 +26,7 @@ class _LoginPageState extends State<LoginPage> {
   ResultModel? result;
   late final SnackBar _snack = MySnackBars.getFailureSnackBar(result!.message!);
 
+  @override
   void initState() {
     super.initState();
     _provider = Provider.of<DataProvider>(context, listen: false);
@@ -36,18 +36,20 @@ class _LoginPageState extends State<LoginPage> {
     String uname = usernamecontroller.text;
     String password = passwordcontroller.text;
     var res = await _provider.login(uname, password);
+    // ignore: avoid_print
     print(res.data);
     if (res.statusCode == 200) {
       result = ResultModel.fromJson(jsonDecode(res.data));
 
-      print(result!.result);
       if (result!.result! == 1) {
+        // ignore: use_build_context_synchronously
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return MainPage(id: result!.id!);
         }));
       }
     } else {
-      print(res.statusCode.toString() + 'lol nigger');
+      // ignore: avoid_print
+      print(res.statusCode.toString());
     }
   }
 
@@ -61,51 +63,59 @@ class _LoginPageState extends State<LoginPage> {
         backgroundColor: white,
         body: SafeArea(
           child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             child: SizedBox(
+              height: MediaQuery.of(context).size.height,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height: 30,
+                  const SizedBox(
+                    height: 50,
                   ),
 
                   ///logo
+                  const SizedBox(
+                    height: 150,
+                    child: Image(image: AssetImage('assets/logo.png')),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 60, left: 25, right: 25, bottom: 10),
+                    child: TextFieldWidget(context,
+                        controller: usernamecontroller,
+                        ispassword: false,
+                        hint: 'username',
+                        icon: Icons.person_rounded),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 25.0,
+                      vertical: 10.0,
+                    ),
+                    child: TextFieldWidget(context,
+                        controller: passwordcontroller,
+                        ispassword: true,
+                        hint: 'password'),
+                  ),
+                  const Spacer(),
                   Container(
-                      height: 150,
-                      child: Image(image: AssetImage('assets/logo.png'))),
-
-                  //
-
-                  SizedBox(
-                    height: 100,
+                    margin: const EdgeInsets.only(bottom: 40),
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: GestureDetector(
+                        onTap: () async {
+                          await loginfunc();
+                          if (result!.result == 0) {
+                            // ignore: use_build_context_synchronously
+                            ScaffoldMessenger.of(context).showSnackBar(_snack);
+                          }
+                        },
+                        child: container_button('Log in', primery, white),
+                      ),
+                    ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                    child:
-                        TextFieldWidget(usernamecontroller, false, 'username'),
-                  ),
-
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      child: TextFieldWidget(
-                          passwordcontroller, true, 'password')),
-
-                  SizedBox(
-                    height: 50,
-                  ),
-                  GestureDetector(
-                    onTap: () async {
-                      await loginfunc();
-                      if (result!.result == 0) {
-                        ScaffoldMessenger.of(context).showSnackBar(_snack);
-                      }
-                    },
-                    child: container_button('Log in', primery, white),
-                  )
 
                   ///
                   /// button

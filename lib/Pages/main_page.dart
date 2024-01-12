@@ -184,6 +184,7 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Column HomePage(BuildContext context) {
     return Column(
       children: [
@@ -217,7 +218,7 @@ class _MainPageState extends State<MainPage> {
                   child: Text(
                     result == null
                         ? "name"
-                        : result!.cusFname! + ' ' + result!.cusLname!,
+                        : '${result!.cusFname!} ${result!.cusLname!}',
                     style: TextStyle(
                         color: Dark, fontSize: 18, fontWeight: FontWeight.bold),
                   ),

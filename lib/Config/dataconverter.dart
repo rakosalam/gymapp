@@ -6,4 +6,5 @@ DateTime? strToDate(String date, DateFormat format) {
   } catch (e) {
     return null;
   }
+  return null;
 }

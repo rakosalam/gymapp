@@ -52,11 +52,21 @@ class _UpdatepasswordPageState extends State<UpdatepasswordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_back_ios_rounded,
+            color: primery,
+          ),
+        ),
         centerTitle: true,
-        backgroundColor: primery,
+        backgroundColor: white,
+        elevation: 0,
         title: Text(
           'Update password',
-          style: TextStyle(color: white, fontWeight: FontWeight.bold),
+          style: TextStyle(color: Dark, fontWeight: FontWeight.bold),
         ),
       ),
       body: Container(
@@ -75,19 +85,29 @@ class _UpdatepasswordPageState extends State<UpdatepasswordPage> {
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 25.0, vertical: 12),
-                        child: TextFieldWidget(
-                            currentpass, false, 'current password'),
+                        child: TextFieldWidget(context,
+                            controller: currentpass,
+                            ispassword: false,
+                            hint: 'current password',
+                            icon: Icons.visibility_off_rounded),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 25.0, vertical: 12),
-                        child: TextFieldWidget(newpass, false, 'new password'),
+                        child: TextFieldWidget(context,
+                            controller: newpass,
+                            ispassword: false,
+                            hint: 'new password',
+                            icon: Icons.visibility_off_rounded),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 25.0, vertical: 12),
-                        child: TextFieldWidget(
-                            confirmpass, false, 'confirm password'),
+                        child: TextFieldWidget(context,
+                            controller: confirmpass,
+                            ispassword: false,
+                            hint: 'confirm password',
+                            icon: Icons.visibility_off_rounded),
                       ),
                     ],
                   ),

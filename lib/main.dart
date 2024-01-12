@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:gymapp/Pages/RequestPage.dart';
-import 'package:gymapp/Pages/ShowHistory.dart';
-import 'package:gymapp/Pages/ShowWorkouts.dart';
-import 'package:gymapp/Pages/UserSettings.dart';
 import 'package:gymapp/Pages/loginPage.dart';
-import 'package:gymapp/Pages/updatepassword.dart';
+import 'package:gymapp/Pages/main_page.dart';
+import 'package:gymapp/provider/Uiprovider.dart';
 import 'package:gymapp/provider/provider.dart';
 import 'dart:io';
-
 import 'package:provider/provider.dart';
-
-import 'Pages/ShowDietPage.dart';
 
 void main() {
   HttpOverrides.global = MyHttpOverrides();
   runApp(MultiProvider(providers: [
-    ChangeNotifierProvider<DataProvider>(create: (_) => DataProvider())
-  ], child: MyApp()));
+    ChangeNotifierProvider<DataProvider>(create: (_) => DataProvider()),
+    ChangeNotifierProvider<Uiprovider>(create: (_) => Uiprovider())
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -26,7 +20,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: ShowWorkouts(id: 12));
+    return const MaterialApp(
+      home: MainPage(id: 6),
+    );
   }
 }
 
