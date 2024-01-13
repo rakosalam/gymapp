@@ -239,13 +239,14 @@ class _RequestPageState extends State<_RequestPage> {
                       ],
                       border: Border.all(color: white, width: 2),
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
-                      color: offWhite),
+                      color: white),
                   height: 200,
                   width: 400,
                   child: TextField(
                     controller: descontroller,
                     decoration: const InputDecoration(
-                        border: InputBorder.none, hintText: "Note..."),
+                        border: InputBorder.none,
+                        hintText: "can't workout more then 4 days a week...."),
                     maxLines: null,
                     expands: true,
                     keyboardType: TextInputType.multiline,

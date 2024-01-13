@@ -51,7 +51,6 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     _provider = Provider.of<DataProvider>(context, listen: false);
 
-    print(widget.id);
     if (widget.id == null) {
       return;
     } else {
@@ -61,22 +60,17 @@ class _MainPageState extends State<MainPage> {
 
   Color progcolor(double P) {
     if (P <= 1.0 && P >= 0.5) {
-      print('Returning green');
       return Colors.green;
     } else if (P <= 0.5 && P >= 0.3) {
-      print('Returning orange');
       return Colors.orange;
     } else if (P <= 0.3 && P >= 0.0) {
-      print('Returning red');
       return Colors.red;
     }
-    print('Returning default red');
     return Colors.red;
   }
 
   Future<void> Getuser(int id) async {
     var res = await _provider.ShowcustomerData(id);
-    print(res.data);
     if (res.statusCode == 200) {
       result = Customermodel.fromJson(jsonDecode(res.data));
       progress = (result!.indays! / result!.mpduration!);
@@ -84,12 +78,10 @@ class _MainPageState extends State<MainPage> {
     }
   }
 
+  // ignore: non_constant_identifier_names
   Future<List<Customermodel>> Gethistory(int id) async {
     var res = await _provider.ShowHistory(id);
-    print(res.data);
     if (res.statusCode == 200) {
-      print(res.data);
-
       return itemsCategoriesFromJson(res.data);
     } else {
       return List.empty();
