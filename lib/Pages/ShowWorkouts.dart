@@ -22,6 +22,7 @@ class _ShowWorkoutsState extends State<ShowWorkouts> {
   late DataProvider _provider;
   List<WorkoutModel>? list;
   WorkoutModel? result;
+  @override
   void initState() {
     super.initState();
     _provider = Provider.of<DataProvider>(context, listen: false);
@@ -43,7 +44,7 @@ class _ShowWorkoutsState extends State<ShowWorkouts> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Workouts', style: TextStyle(color: Dark)),
+        title: Text('Workouts', style: TextStyle(color: dark)),
         actions: [
           IconButton(
               onPressed: () {
@@ -55,7 +56,7 @@ class _ShowWorkoutsState extends State<ShowWorkouts> {
               },
               icon: Icon(
                 Icons.info_outline_rounded,
-                color: primery,
+                color: primary,
               ))
         ],
         backgroundColor: white,
@@ -72,16 +73,16 @@ class _ShowWorkoutsState extends State<ShowWorkouts> {
                 children: [
                   Text('Workouts',
                       style:
-                          TextStyle(color: Dark, fontWeight: FontWeight.bold)),
+                          TextStyle(color: dark, fontWeight: FontWeight.bold)),
                   Text('Sets',
                       style:
-                          TextStyle(color: Dark, fontWeight: FontWeight.bold)),
+                          TextStyle(color: dark, fontWeight: FontWeight.bold)),
                   Text('Reps',
                       style:
-                          TextStyle(color: Dark, fontWeight: FontWeight.bold)),
+                          TextStyle(color: dark, fontWeight: FontWeight.bold)),
                   Text('Day',
                       style:
-                          TextStyle(color: Dark, fontWeight: FontWeight.bold))
+                          TextStyle(color: dark, fontWeight: FontWeight.bold))
                 ],
               ),
             ),
@@ -118,7 +119,7 @@ class _ShowWorkoutsState extends State<ShowWorkouts> {
                                       child: ListTile(
                                         title: Text(
                                           list[index].wType!,
-                                          style: TextStyle(color: Dark),
+                                          style: TextStyle(color: dark),
                                         ),
                                       ),
                                     ),
@@ -133,7 +134,7 @@ class _ShowWorkoutsState extends State<ShowWorkouts> {
                                         title: Text(
                                           // Add the second type of data from your list here
                                           list[index].wpSets!.toString(),
-                                          style: TextStyle(color: Dark),
+                                          style: TextStyle(color: dark),
                                         ),
                                       ),
                                     ),
@@ -144,7 +145,7 @@ class _ShowWorkoutsState extends State<ShowWorkouts> {
                                         title: Text(
                                           // Add the third type of data from your list here
                                           list[index].wpReps!.toString(),
-                                          style: TextStyle(color: Dark),
+                                          style: TextStyle(color: dark),
                                         ),
                                       ),
                                     ),
@@ -155,7 +156,7 @@ class _ShowWorkoutsState extends State<ShowWorkouts> {
                                         title: Text(
                                           // Add the fourth type of data from your list here
                                           list[index].wpDay!.toString(),
-                                          style: TextStyle(color: Dark),
+                                          style: TextStyle(color: dark),
                                         ),
                                       ),
                                     ),
@@ -171,10 +172,10 @@ class _ShowWorkoutsState extends State<ShowWorkouts> {
                         },
                       );
                     } else {
-                      return CircularProgressIndicator();
+                      return const Center(child: CircularProgressIndicator());
                     }
                   } else {
-                    return CircularProgressIndicator();
+                    return const Center(child: CircularProgressIndicator());
                   }
                 },
               ),

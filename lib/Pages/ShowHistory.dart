@@ -1,10 +1,11 @@
-import 'dart:convert';
+// ignore_for_file: file_names
 
+import 'dart:convert' show jsonDecode;
 import 'package:flutter/material.dart';
 import 'package:gymapp/models/Customermodel.dart';
 import 'package:provider/provider.dart';
+// ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
-
 import '../Config/Colorcfg.dart';
 import '../provider/provider.dart';
 
@@ -41,10 +42,10 @@ class _ShowHistoryState extends State<ShowHistory> {
                 children: [
                   Text('Date',
                       style:
-                          TextStyle(color: Dark, fontWeight: FontWeight.bold)),
+                          TextStyle(color: dark, fontWeight: FontWeight.bold)),
                   Text('Time',
                       style:
-                          TextStyle(color: Dark, fontWeight: FontWeight.bold)),
+                          TextStyle(color: dark, fontWeight: FontWeight.bold)),
                 ],
               ),
             ),
@@ -66,7 +67,7 @@ class _ShowHistoryState extends State<ShowHistory> {
                         );
 
                         return ListView.builder(
-                          physics: BouncingScrollPhysics(),
+                          physics: const BouncingScrollPhysics(),
                           itemCount: list.length,
                           itemBuilder: (context, index) {
                             return Column(
@@ -79,14 +80,11 @@ class _ShowHistoryState extends State<ShowHistory> {
                                       SizedBox(
                                         width:
                                             MediaQuery.of(context).size.width *
-                                                0.40, // 25% of the screen width
+                                                0.40,
                                         child: ListTile(
                                           title: Text(
-                                            format
-                                                .format(DateTime.parse(
-                                                    list[index].history!))
-                                                .toString(),
-                                            style: TextStyle(color: Dark),
+                                            '${index + 1}: ${format.format(DateTime.parse(list[index].history!))}',
+                                            style: TextStyle(color: dark),
                                           ),
                                         ),
                                       ),
@@ -98,14 +96,14 @@ class _ShowHistoryState extends State<ShowHistory> {
                                       SizedBox(
                                         width:
                                             MediaQuery.of(context).size.width *
-                                                0.30, // 25% of the screen width
+                                                0.30,
                                         child: ListTile(
                                           title: Text(
                                             timeFormat
                                                 .format(DateTime.parse(
                                                     list[index].history!))
                                                 .toString(),
-                                            style: TextStyle(color: Dark),
+                                            style: TextStyle(color: dark),
                                           ),
                                         ),
                                       ),
@@ -121,10 +119,10 @@ class _ShowHistoryState extends State<ShowHistory> {
                           },
                         );
                       } else {
-                        return Center(child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       }
                     } else {
-                      return Center(child: CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator());
                     }
                   },
                 ),

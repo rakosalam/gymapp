@@ -18,7 +18,7 @@ import '../utils/urls.dart';
 
 class UserSettings extends StatefulWidget {
   final int id;
-  UserSettings({super.key, required this.id});
+  const UserSettings({super.key, required this.id});
 
   @override
   State<UserSettings> createState() => _UserSettingsState();
@@ -34,7 +34,7 @@ class _UserSettingsState extends State<UserSettings> {
     super.initState();
     _provider = Provider.of<DataProvider>(context, listen: false);
 
-    Getuser(widget!.id!);
+    Getuser(widget.id);
   }
 
   Future<void> Getuser(int id) async {
@@ -46,17 +46,16 @@ class _UserSettingsState extends State<UserSettings> {
     }
   }
 
+  // ignore: non_constant_identifier_names
   Future<void> Updateimage() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     var result = await _provider.Updateimage(widget.id, pickedFile!);
     if (result.statusCode == 200) {
       res = ResultModel.fromJson(jsonDecode(result.data));
-      if (res!.result == '1') {
-        print(res!.message);
+      if (res!.result == 1) {
         _snack = MySnackBars.getFailureSnackBar(res!.message!);
       } else {
-        print(res!.message);
         setState(() {});
       }
     }
@@ -73,13 +72,13 @@ class _UserSettingsState extends State<UserSettings> {
             },
             icon: Icon(
               Icons.arrow_back_ios_rounded,
-              color: primery,
+              color: primary,
             ),
           ),
           centerTitle: true,
           title: Text(
             'Settings',
-            style: TextStyle(color: Dark, fontWeight: FontWeight.bold),
+            style: TextStyle(color: dark, fontWeight: FontWeight.bold),
           ),
           backgroundColor: white,
           elevation: 0,
@@ -91,6 +90,9 @@ class _UserSettingsState extends State<UserSettings> {
             Column(children: [
               Center(
                 child: CircleAvatar(
+                  radius: 68.0,
+                  // backgroundImage: NetworkImage('https://via.placeholder.com/300'),
+                  backgroundColor: Colors.transparent,
                   child: ClipOval(
                     child: Stack(
                       children: <Widget>[
@@ -123,12 +125,9 @@ class _UserSettingsState extends State<UserSettings> {
                       ],
                     ),
                   ),
-                  radius: 68.0,
-                  // backgroundImage: NetworkImage('https://via.placeholder.com/300'),
-                  backgroundColor: Colors.transparent,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Padding(
@@ -137,9 +136,9 @@ class _UserSettingsState extends State<UserSettings> {
                     child: Text(
                   result == null
                       ? "name"
-                      : result!.cusFname! + ' ' + result!.cusLname!,
+                      : '${result!.cusFname!} ${result!.cusLname!}',
                   style: TextStyle(
-                      color: Dark, fontWeight: FontWeight.bold, fontSize: 20),
+                      color: dark, fontWeight: FontWeight.bold, fontSize: 20),
                 )),
               )
             ]),
@@ -150,44 +149,41 @@ class _UserSettingsState extends State<UserSettings> {
                 thickness: 2,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Expanded(
-              child: Container(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return UpdatepasswordPage(id: result!.cusId!);
-                      }));
-                    },
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child:
-                              navbuttons('Update Password', Icons.lock_outline),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child:
-                              navbuttons('Update User', Icons.person_outline),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: navbuttons('Details', Icons.edit_outlined),
-                        ),
-                      ],
-                    ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return UpdatepasswordPage(id: result!.cusId!);
+                    }));
+                  },
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child:
+                            navbuttons('Update Password', Icons.lock_outline),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: navbuttons('Update User', Icons.person_outline),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: navbuttons('Details', Icons.edit_outlined),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -201,7 +197,7 @@ class _UserSettingsState extends State<UserSettings> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => LoginPage(),
+                        builder: (context) => const LoginPage(),
                       ));
                 },
                 child: Container(
@@ -209,7 +205,7 @@ class _UserSettingsState extends State<UserSettings> {
                   height: 40,
                   decoration: BoxDecoration(
                       color: error,
-                      borderRadius: BorderRadius.all(Radius.circular(8))),
+                      borderRadius: const BorderRadius.all(Radius.circular(8))),
                   child: Align(
                     alignment: Alignment.center,
                     child: Text('Logout',

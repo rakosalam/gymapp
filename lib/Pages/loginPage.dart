@@ -112,7 +112,7 @@ class _LoginPageState extends State<LoginPage> {
                             ScaffoldMessenger.of(context).showSnackBar(_snack);
                           }
                         },
-                        child: container_button('Log in', primery, white),
+                        child: container_button('Log in', primary, white),
                       ),
                     ),
                   ),

@@ -58,7 +58,7 @@ class _UpdatepasswordPageState extends State<UpdatepasswordPage> {
           },
           icon: Icon(
             Icons.arrow_back_ios_rounded,
-            color: primery,
+            color: primary,
           ),
         ),
         centerTitle: true,
@@ -66,7 +66,7 @@ class _UpdatepasswordPageState extends State<UpdatepasswordPage> {
         elevation: 0,
         title: Text(
           'Update password',
-          style: TextStyle(color: Dark, fontWeight: FontWeight.bold),
+          style: TextStyle(color: dark, fontWeight: FontWeight.bold),
         ),
       ),
       body: Container(
@@ -118,7 +118,7 @@ class _UpdatepasswordPageState extends State<UpdatepasswordPage> {
                   loginfunc();
                   print('lol');
                 },
-                child: container_button('Update password', primery, white),
+                child: container_button('Update password', primary, white),
               ),
             ],
           ),

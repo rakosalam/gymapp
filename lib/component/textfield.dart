@@ -16,7 +16,7 @@ Widget TextFieldWidget(BuildContext context,
         },
         child: Icon(
           icon,
-          color: primery,
+          color: primary,
           size: 25,
         ),
       );
@@ -35,14 +35,14 @@ Widget TextFieldWidget(BuildContext context,
                   ? gesture(showpassword, Icons.visibility_rounded)
                   : gesture(showpassword, Icons.visibility_off_rounded)
               : gesture(false, icon),
-          hintStyle: TextStyle(color: Dark),
+          hintStyle: TextStyle(color: dark),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: primery),
+            borderSide: BorderSide(color: primary),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: primery),
+            borderSide: BorderSide(color: primary),
           ),
         ),
       );

@@ -17,7 +17,7 @@ void showMyDialog(BuildContext context, String _barcode) {
           width: 350,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(8)),
-              border: Border.all(color: primery),
+              border: Border.all(color: primary),
               color: white),
           child: Card(
               child: Center(
@@ -52,7 +52,7 @@ void ShowWorkoutinfo(
           width: 350,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(8)),
-              border: Border.all(color: primery),
+              border: Border.all(color: primary),
               color: white),
           child: Card(
               child: Center(
@@ -66,7 +66,7 @@ void ShowWorkoutinfo(
                     children: [
                       Text('Start Date:${formattedStartDate}',
                           style: TextStyle(
-                              color: Dark,
+                              color: dark,
                               fontSize: 18,
                               fontWeight: FontWeight.bold)),
                       SizedBox(
@@ -74,7 +74,7 @@ void ShowWorkoutinfo(
                       ),
                       Text('End Date:${formatedEndDate}',
                           style: TextStyle(
-                              color: Dark,
+                              color: dark,
                               fontSize: 18,
                               fontWeight: FontWeight.bold)),
                       SizedBox(
@@ -83,12 +83,12 @@ void ShowWorkoutinfo(
                       Container(
                         width: 260,
                         decoration: BoxDecoration(
-                            border: Border.all(width: 2, color: primery),
+                            border: Border.all(width: 2, color: primary),
                             borderRadius: BorderRadius.all(Radius.circular(8))),
                         child: Text(desc,
                             maxLines: 5,
                             style: TextStyle(
-                                color: Dark,
+                                color: dark,
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold)),
                       )

@@ -1,11 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:gymapp/Config/Colorcfg.dart';
 import 'package:gymapp/component/buttons.dart';
 import 'package:provider/provider.dart';
-
-import '../component/textfield.dart';
 import '../models/RequestModel.dart';
 import '../models/ResultModel.dart';
 import '../models/Trainer.dart';
@@ -27,7 +24,7 @@ class RequestPage extends StatelessWidget {
 
 class _RequestPage extends StatefulWidget {
   final int? id; // Declare id here
-  _RequestPage({Key? key, required this.id}) : super(key: key);
+  const _RequestPage({Key? key, required this.id}) : super(key: key);
 
   @override
   State<_RequestPage> createState() => _RequestPageState();
@@ -47,6 +44,7 @@ class _RequestPageState extends State<_RequestPage> {
     _provider = Provider.of<DataProvider>(context, listen: false);
   }
 
+  // ignore: non_constant_identifier_names
   Future<void> Request() async {
     String desc = descontroller.text;
     _requestModel = RequestModel(
@@ -80,55 +78,78 @@ class _RequestPageState extends State<_RequestPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: Container(
+          height: MediaQuery.of(context).size.height,
           color: white,
           child: Column(
             children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Select a Trainer",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    )),
+              ),
               FutureBuilder<List<Trainer>>(
                 future: getTrainers(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
+                    return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Text('No trainers available');
+                    return const Text('No trainers available');
                   } else {
                     List<DropdownMenuItem<int>> dropdownItems = snapshot.data!
                         .map((trainer) => DropdownMenuItem<int>(
                               value: trainer.trId ?? 0,
                               child: Text(
                                 '${trainer.trFname ?? ''} ${trainer.trLname ?? ''}',
-                              ), // Check for null before combining names
+                              ),
                             ))
                         .toList();
 
                     return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: DropdownButton<int>(
-                        dropdownColor: Colors.white,
-                        hint: Text('Select a Trainer'),
-                        elevation: 0,
-                        iconEnabledColor: primery,
-                        iconSize: 30,
-                        isExpanded: true,
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                        items: dropdownItems,
-                        value: selectedTrId,
-                        onChanged: (selectedValue) {
-                          setState(() {
-                            selectedTrId = selectedValue;
-                          });
-                        },
-                        underline: Container(
-                          // Replace the underline with a border
-                          height:
-                              0, // Adjust the height of the border as needed
-                        ),
-                        style: TextStyle(color: Dark), // Customize text color
-                      ),
-                    );
+                        padding: const EdgeInsets.fromLTRB(20, 5, 20, 10),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                color: primary,
+                                width: 2.0,
+                              ),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(8)),
+                              color: white),
+                          child: Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: DropdownButton<int>(
+                              dropdownColor: Colors.white,
+                              hint: const Text(
+                                'Select a Trainer',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              elevation: 0,
+                              iconEnabledColor: primary,
+                              iconSize: 30,
+                              isExpanded: true,
+                              items: dropdownItems,
+                              value: selectedTrId,
+                              onChanged: (selectedValue) {
+                                setState(() {
+                                  selectedTrId = selectedValue;
+                                });
+                              },
+                              underline: Container(
+                                height: 0,
+                              ),
+                              style: TextStyle(color: dark),
+                            ),
+                          ),
+                        ));
                   }
                 },
               ),
@@ -138,12 +159,15 @@ class _RequestPageState extends State<_RequestPage> {
                   builder: (context, dataProvider, child) {
                     return Row(
                       children: [
-                        Text(
-                          'Requist Diet',
-                          style: TextStyle(
-                              color: Dark, fontWeight: FontWeight.bold),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: Text(
+                            'Requist Diet',
+                            style: TextStyle(
+                                color: dark, fontWeight: FontWeight.bold),
+                          ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 30,
                         ),
                         Switch(
@@ -152,10 +176,8 @@ class _RequestPageState extends State<_RequestPage> {
                             dataProvider.isDiet = value;
                             if (dataProvider.isDiet == true) {
                               isdiet = 1;
-                              print(isdiet);
                             } else {
                               isdiet = 0;
-                              print(isdiet);
                             }
                           },
                         ),
@@ -170,10 +192,13 @@ class _RequestPageState extends State<_RequestPage> {
                   builder: (context, dataProvider, child) {
                     return Row(
                       children: [
-                        Text(
-                          'Request Workout',
-                          style: TextStyle(
-                              color: Dark, fontWeight: FontWeight.bold),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: Text(
+                            'Request Workout',
+                            style: TextStyle(
+                                color: dark, fontWeight: FontWeight.bold),
+                          ),
                         ),
                         Switch(
                           value: dataProvider.isworkout,
@@ -181,10 +206,8 @@ class _RequestPageState extends State<_RequestPage> {
                             dataProvider.isworkout = value;
                             if (dataProvider.isworkout == true) {
                               isworkout = 1;
-                              print(isworkout);
                             } else {
                               isworkout = 0;
-                              print(isworkout);
                             }
                           },
                         ),
@@ -193,28 +216,50 @@ class _RequestPageState extends State<_RequestPage> {
                   },
                 ),
               ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Note",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    )),
+              ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
                 child: Container(
                   decoration: BoxDecoration(
-                      border: Border.all(color: primery, width: 2),
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 2,
+                          color: dark,
+                          offset: Offset.zero,
+                        )
+                      ],
+                      border: Border.all(color: white, width: 2),
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      color: offWhite),
                   height: 200,
                   width: 400,
                   child: TextField(
                     controller: descontroller,
+                    decoration: const InputDecoration(
+                        border: InputBorder.none, hintText: "Note..."),
                     maxLines: null,
                     expands: true,
                     keyboardType: TextInputType.multiline,
                   ),
                 ),
               ),
-              SizedBox(height: 150),
+              const SizedBox(
+                height: 100,
+              ),
               GestureDetector(
                 onTap: () async {
                   await Request();
                 },
-                child: container_button('Send Request', primery, white),
+                child: container_button('Send Request', primary, white),
               ),
             ],
           ),

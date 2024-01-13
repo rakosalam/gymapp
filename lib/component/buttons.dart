@@ -31,7 +31,7 @@ Widget navbuttons(String text, IconData _icon) {
       child: Center(
         child: Icon(
           _icon,
-          color: primery,
+          color: primary,
           size: 35,
         ),
       ),
@@ -43,7 +43,7 @@ Widget navbuttons(String text, IconData _icon) {
       child: Text(
         text,
         style:
-            TextStyle(color: Dark, fontSize: 18, fontWeight: FontWeight.bold),
+            TextStyle(color: dark, fontSize: 18, fontWeight: FontWeight.bold),
       ),
     ),
     Icon(Icons.arrow_forward_ios)

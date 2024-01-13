@@ -29,7 +29,7 @@ class _ShowDietPageState extends State<ShowDietPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Diet', style: TextStyle(color: Dark)),
+        title: Text('Diet', style: TextStyle(color: dark)),
         backgroundColor: white,
         elevation: 0,
       ),
@@ -44,13 +44,13 @@ class _ShowDietPageState extends State<ShowDietPage> {
                 children: [
                   Text('Food',
                       style:
-                          TextStyle(color: Dark, fontWeight: FontWeight.bold)),
+                          TextStyle(color: dark, fontWeight: FontWeight.bold)),
                   Text('Portion',
                       style:
-                          TextStyle(color: Dark, fontWeight: FontWeight.bold)),
+                          TextStyle(color: dark, fontWeight: FontWeight.bold)),
                   Text('Meal',
                       style:
-                          TextStyle(color: Dark, fontWeight: FontWeight.bold)),
+                          TextStyle(color: dark, fontWeight: FontWeight.bold)),
                 ],
               ),
             ),
@@ -87,7 +87,7 @@ class _ShowDietPageState extends State<ShowDietPage> {
                                       child: ListTile(
                                         title: Text(
                                           list[index].fType!,
-                                          style: TextStyle(color: Dark),
+                                          style: TextStyle(color: dark),
                                         ),
                                       ),
                                     ),
@@ -102,7 +102,7 @@ class _ShowDietPageState extends State<ShowDietPage> {
                                         title: Text(
                                           // Add the second type of data from your list here
                                           list[index].fPortion!.toString(),
-                                          style: TextStyle(color: Dark),
+                                          style: TextStyle(color: dark),
                                         ),
                                       ),
                                     ),
@@ -118,7 +118,7 @@ class _ShowDietPageState extends State<ShowDietPage> {
                                           alignment: Alignment.centerRight,
                                           child: Text(
                                             list[index].fMeal!.toString(),
-                                            style: TextStyle(color: Dark),
+                                            style: TextStyle(color: dark),
                                           ),
                                         ),
                                       ),

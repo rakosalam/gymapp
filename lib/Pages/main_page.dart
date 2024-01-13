@@ -34,7 +34,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final PageController pageController = PageController(initialPage: 1);
-  int selectedTab = 0;
+  int selectedTab = 1;
   late final String data;
   final DateFormat format = DateFormat('yyyy-MM-dd');
   late DataProvider _provider;
@@ -43,7 +43,7 @@ class _MainPageState extends State<MainPage> {
 
   final Widget _divider = Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20),
-    child: Divider(thickness: 1, color: Dark),
+    child: Divider(thickness: 1, color: dark),
   );
 
   @override
@@ -109,7 +109,7 @@ class _MainPageState extends State<MainPage> {
               : selectedTab == 2
                   ? "History"
                   : "Request",
-          style: TextStyle(color: Dark),
+          style: TextStyle(color: dark),
         ),
       ),
       backgroundColor: white,
@@ -161,7 +161,7 @@ class _MainPageState extends State<MainPage> {
               iconSize: 24,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               duration: const Duration(milliseconds: 400),
-              tabBackgroundColor: primery,
+              tabBackgroundColor: primary,
               color: Colors.black,
               tabs: const [
                 GButton(
@@ -220,7 +220,7 @@ class _MainPageState extends State<MainPage> {
                         ? "name"
                         : '${result!.cusFname!} ${result!.cusLname!}',
                     style: TextStyle(
-                        color: Dark, fontSize: 18, fontWeight: FontWeight.bold),
+                        color: dark, fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
                 const SizedBox(
@@ -235,7 +235,7 @@ class _MainPageState extends State<MainPage> {
                         width: 85,
                         height: 30,
                         decoration: BoxDecoration(
-                            color: primery,
+                            color: primary,
                             borderRadius: BorderRadius.circular(7)),
                         child: Center(
                           child: Text(
@@ -254,7 +254,7 @@ class _MainPageState extends State<MainPage> {
                         width: 85,
                         height: 30,
                         decoration: BoxDecoration(
-                            color: primery,
+                            color: primary,
                             borderRadius: BorderRadius.circular(7)),
                         child: Center(
                           child: Text(
@@ -275,7 +275,7 @@ class _MainPageState extends State<MainPage> {
                         width: 85,
                         height: 30,
                         decoration: BoxDecoration(
-                            color: primery,
+                            color: primary,
                             borderRadius: BorderRadius.circular(7)),
                         child: Center(
                           child: Text(
@@ -308,12 +308,12 @@ class _MainPageState extends State<MainPage> {
             height: 24,
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(6)),
-              border: Border.all(color: primery, width: 2),
+              border: Border.all(color: primary, width: 2),
             ),
             child: Center(
               child: Text(
                 'Show Barcode',
-                style: TextStyle(color: primery, fontWeight: FontWeight.bold),
+                style: TextStyle(color: primary, fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -322,52 +322,50 @@ class _MainPageState extends State<MainPage> {
         const SizedBox(height: 10),
         _divider,
 
-        Container(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return UserSettings(id: result!.cusId!);
-                      }));
-                    },
-                    child: navbuttons('Settings', Icons.settings_outlined),
-                  ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return UserSettings(id: result!.cusId!);
+                    }));
+                  },
+                  child: navbuttons('Settings', Icons.settings_outlined),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                      onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ShowWorkouts(id: widget.id),
-                          )),
-                      child: navbuttons(
-                          'Workouts', Icons.fitness_center_outlined)),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                      onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ShowDietPage(id: widget.id),
-                          )),
-                      child: navbuttons('Diet', Icons.favorite_border_rounded)),
-                ),
-              ],
-            ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GestureDetector(
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ShowWorkouts(id: widget.id),
+                        )),
+                    child:
+                        navbuttons('Workouts', Icons.fitness_center_outlined)),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GestureDetector(
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ShowDietPage(id: widget.id),
+                        )),
+                    child: navbuttons('Diet', Icons.favorite_border_rounded)),
+              ),
+            ],
           ),
         ),
 
